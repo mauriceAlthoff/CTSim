@@ -1565,7 +1565,7 @@ ImageFile::readImagePNG (const char* const pszFile)
     return false;
   }
 
-  if (setjmp(png_ptr->jmpbuf)) {
+  if (setjmp(png_jmpbuf(png_ptr))) {
     png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
     fclose(fp);
     return false;
@@ -1815,7 +1815,7 @@ ImageFile::writeImagePNG (const char* const outfile, int bitdepth, int nxcell, i
     return false;
   }
 
-  if (setjmp (png_ptr->jmpbuf)) {
+  if (setjmp (png_jmpbuf(png_ptr))) {
     png_destroy_write_struct (&png_ptr, &info_ptr);
     fclose (fp);
     return false;
