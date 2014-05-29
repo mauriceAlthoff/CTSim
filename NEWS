@@ -1,0 +1,103 @@
+Version 4.2 Released Mar 2003
+
+* Direct Fourier Reconstructions now supported
+
+Version 4.0 Released Jan 2003
+
+* Port to wxWindows 2.4
+
+* Port to Mac OS X
+
+
+Version 3.5 Released May 2002
+
+* New reconstruction technique: Interpolate divergent beams to
+  parallel beams for faster reconstructions.
+
+* Multithreading for running length processes in background. Also
+  takes advantage of multiple-CPU's in SMP systems for speed improvements
+  with parallel processing.
+
+* Region of interest can be specified for reconstruction zooming.
+
+* Import PNG, PPM, and PGM images
+
+* DICOM file import/export
+
+* Clipboard for cutting and pasting images
+
+* Can read and reconstruct SIEMENS AR.STAR DICOM raw data files
+
+* Scattergram of T-Theta sampling. Useful for understanding divergent beam
+  scanning.
+
+* Startup-tips to help new users learn features.
+
+* Ability to place detector at any arbitray position
+
+* Histogram plotting of projection files
+
+
+Version 3.0 New Features
+
+* Greatly improved dialog boxes
+
+* Online and print manuals with context-sensitive help!
+
+* 3-d rotating views of image files
+
+* Creation of arbitrary filter images
+
+* Cubic interpolation for reconstructions
+
+* All features of command line tools are now in graphical ctsim program!
+
+* Complex-valued image files now supported, lots of image math
+ functions added including Fourier transformations
+
+* Visual and statistical image comparision functions
+
+* Plotting of row and column data of single and comparison images
+
+* Histogram Plotting of Image files.
+
+* Conversion of projections to polar images
+
+* Improved animation graphics
+
+* New Microsoft Windows compatible self-installer with explorer extensions 
+to CTSim files
+
+
+
+Version 2.5 of CTSim has been released!
+
+New Features of CTSim version 2.5:
+
+- Now compiles with Microsoft Visual C++.
+
+- First Microsoft Windows graphical user interface
+
+- Bug fixes and modest documentation and program improvements over version 2.0
+
+
+
+New Features of CTSim version 2.0:
+
+- Entire code-base cleaned up, re-written, and converted from C to C++.
+
+- Graphical user interface now included! Animation of projection and
+  reconstruction processes. Displays projection and image files. Uses
+  platform-independent wxWindows library so can run on UNIX and 
+  Microsoft Windows platforms.
+
+- Integrated G2 library for graphical display from command line tools
+  (UNIX only)
+
+- Added frequency-based filtering. Can provide significant speed-up
+  in reconstructions compared to convolution-based filtering.
+
+- Added highly-optimized backprojection method (idiff3)
+
+- New command-line tools added for image statistics and comparisons with
+  both text and graphical outputs.

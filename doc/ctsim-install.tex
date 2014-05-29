@@ -1,0 +1,73 @@
+\chapter{Installation}\label{installation}\index{Installation}%
+\setheader{{\it CHAPTER \thechapter}}{}{}{\ctsimheadtitle}{}{{\it CHAPTER \thechapter}}%
+\ctsimfooter%
+
+\section{Download}\label{download}\index{Download}%
+
+The latest version of \ctsim, both as executable programs and source code,
+ can be downloaded from the official
+ \ctsim\ \urlref{web site}{http://www.ctsim.org}. Additionally, these
+ files are also available from the \ctsim\ \urlref{FTP site}{files://files.b9.com/ctsim}.
+
+
+\section{Installing Windows Binary}
+
+Download the Windows executable file.
+Simply execute this program to begin the
+installation program. \ctsim\ will then be accessible from the
+\texttt{Start} Menu under the \texttt{Programs} submenu.
+
+\ctsim\ is compatible with Windows 98, Windows Me, Windows NT 4.0,
+and Windows 2000. Due to use of the OpenGL and htmlhelp libraries,
+\ctsim\ is not compatible with the stock Windows 95 system.
+
+\section{Installing Linux RPM}
+Download the \ctsim\ RPM file, then use
+the \texttt{rpm} manager program as follows:\\
+\hspace*{1cm}\texttt{rpm -Uvh} \emph{ctsim-*.rpm}\\
+
+\ctsim\ and \ctsimtext\ will then be installed in the \texttt{/usr/local/bin}
+directory. The online help file, \texttt{ctsim.hhp}, will be installed in
+directory \texttt{/usr/local/man}.
+
+\section{Build From Sources}\label{build}\index{Source code build}
+
+Refer to the INSTALL file included in the source distribution for
+instructions.
+
+\subsection{Optional Libraries}
+These libraries are optional and not required to build \ctsim\ from source code.
+However, they add functionality to \ctsim\ and there inclusion is recommended.
+
+  \begin{itemize}
+  \item \textbf{wxWindows 2.3}\\
+  Used for the platform-independent graphical interface. The graphical version
+  of \ctsim\ requires this library.\\
+  \urlref{Web site}{http://www.wxwindows.org}
+
+  \item \textbf{FFTW3}\\
+    Used for fast Fourier transformations of projections and images.
+    Without this library \ctsim\ will use slower, traditional Fourier transformations.\\
+    \urlref{Web site}{http://www.fftw.org}
+
+  \item \textbf{libpng}\\
+        Used for PNG file export.\\
+    \urlref{Web site}{http://www.libpng.org/pub/png/libpng.html}
+
+  \item \textbf{zlib}\\
+        Used for PNG file export.\\
+    \urlref{Web site}{http://www.info-zip.org/pub/infozip/zlib/zlib_docs.html}
+
+  \item \textbf{readline}\\
+    Used for \ctsimtext\ interactive shell.\\
+    \urlref{Web site}{http://www.gnu.org}
+
+  \item \textbf{dmalloc}\\
+    Used for debugging memory allocation.\\
+    \urlref{Web site}{http://www.dmalloc.com}
+
+  \item \textbf{ctn}\\
+    DICOM library used to support import/export of DICOM files
+    \urlref{Web site}{http://www.erl.wustl.edu/DICOM/ctn.html}
+
+\end{itemize}

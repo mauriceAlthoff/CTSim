@@ -1,0 +1,129 @@
+\chapter{Simple Graphics Package}\label{sgp}\index{Simple Graphics Package}
+\setheader{{\it Appendix \thechapter}}{}{}{\ctsimheadtitle}{}{{\it Appendix \thechapter}}%
+\ctsimfooter%
+
+Simple Graphics Package was created in 1980 by Kevin Rosenberg and
+is modelled after the hypothetical graphics library described by Foley and van
+Dam\cite{FOLEY82}. It is designed to be platform-independent.
+
+\section{Transformation Sequence}
+\latexonly{
+\parbox{11cm}{
+\centerline{Master coordinate (MC) level}
+\centerline{$\downarrow$}
+\centerline{Apply \emph{Current transformation matrix}}
+\centerline{$\downarrow$}
+\centerline{World coordinate (WC) level}
+\centerline{$\downarrow$}
+\centerline{Clipping against Window}
+\centerline{$\downarrow$}
+\centerline{Convert to Normalized device coordinates (NDC)}
+\centerline{$\downarrow$}
+\centerline{Clipping against Viewport}
+\centerline{$\downarrow$}
+\centerline{Convert to Physical device coordinates (PDC)}
+}}
+\latexignore{
+\centerline{Master coordinate (MC) level}
+\centerline{Apply \emph{Current transformation matrix}}
+\centerline{World coordinate (WC) level}
+\centerline{Clipping against Window}
+\centerline{Convert to Normalized device coordinates (NDC)}
+\centerline{Clipping against Viewport}
+\centerline{Convert to Physical device coordinates (PDC)}
+}
+
+\section{Functions}%
+
+\subsection{Master coordinate functions}
+\begin{twocollist}
+\twocolitem{\texttt{setWindow(xmin,ymin,xmax,ymax)}}{Set window for world
+coordinates}
+\twocolitem{\texttt{moveAbs(x,y)}}{Move graphics cursor to absolute position}
+\twocolitem{\texttt{moveRel(dx,dy)}}{Move graphics cursor relative to current position}
+\twocolitem{\texttt{pointAbs(x,y)}}{Draw point at current position}
+\twocolitem{\texttt{pointRel(dx,dy)}}{Draw point relative to current position}
+\twocolitem{\texttt{lineAbs(x,y)}}{Draw line from current position to
+absolute position}
+\twocolitem{\texttt{lineRel(dx,dy)}}{Draw line from current position to position
+relative to current position}
+\twocolitem{\texttt{markerAbs(x,y)}}{Draw marker at current position}
+\twocolitem{\texttt{markerRel(dx,dy)}}{Draw marker relative to current position}
+\twocolitem{\texttt{polylineAbs(x[],y[],n)}}{Draw a series of lines to absolute position}
+\twocolitem{\texttt{polylineRel(dx[],dy[],n)}}{Draw series of lines relative to current position}
+\twocolitem{\texttt{drawString(str)}}{Draw text string at current positon}
+\twocolitem{\texttt{drawCircle(r)}}{Draw circle at current positon}
+\twocolitem{\texttt{drawArc(r,start,stop)}}{Draw arc with center at current positon}
+\twocolitem{\texttt{drawRect(xmin,ymin,xmax,ymax)}}{Draw rectangle}
+\end{twocollist}
+
+\subsection{Normalized coordinate functions}%
+\begin{twocollist}
+\twocolitem{\texttt{Viewport(xmin,ymin,xmax,ymax)}}{Viewport for window
+in NDC}
+\twocolitem{\texttt{stylus(x,y,beam)}}{Draw a line from current
+position if beam = 1, otherwise move stylus to new position}
+\twocolitem{\texttt{markerNDC(xndc,yndc)}}{Draw marker at NDC position}
+\end{twocollist}
+
+\subsection{Master coordinate to World coordinate transformations}%
+These transformation functions operate on the \emph{Current transformation
+matrix} (CTM).
+
+\begin{twocollist}
+\twocolitem{\texttt{clearCTM()}}{Sets the CTM to an identity matrix}
+\twocolitem{\texttt{preTranslate(x,y)}}{Apply translation to CTM}
+\twocolitem{\texttt{postTranslate(x,y)}}{Apply translation to CTM}
+\twocolitem{\texttt{preScale(x,y)}}{Apply scale to CTM}
+\twocolitem{\texttt{postScale(x,y)}}{Apply scale to CTM}
+\twocolitem{\texttt{preRotate(angle)}}{Apply rotation to CTM}
+\twocolitem{\texttt{postRotate(angle)}}{Apply rotation to CTM}
+\twocolitem{\texttt{preShear(x,y)}}{Apply shear to CTM}
+\twocolitem{\texttt{postShear(x,y)}}{Apply shear to CTM}
+\end{twocollist}
+
+\subsection{Coordinate transformation functions}%
+\begin{twocollist}
+\twocolitem{\texttt{transformMCtoNDC(\&x,\&y)}}{Convert from master
+coordinates to NDC}
+\twocolitem{\texttt{transformNDCtoMC(\&x,\&y)}}{Convert from NDC to master
+coordinates}
+\end{twocollist}
+
+\subsection{State functions}
+\begin{twocollist}
+\twocolitem{\texttt{eraseWindow()}}{Clears the screen}
+\twocolitem{\texttt{setColor(color)}}{Set current pen color}
+\twocolitem{\texttt{setLinestyle(style)}}{Set current pen style}
+\twocolitem{\texttt{setLinewidth(width)}}{Set current pen width}
+\twocolitem{\texttt{setTextColor(foreground, background)}}{Set text colors}
+\twocolitem{\texttt{setMarker(type,color)}}{Set marker attibutes}
+\twocolitem{\texttt{setRasterOp(rasterOp)}}{Set raster operator}
+\end{twocollist}
+
+\section{Coordinate Mapping}
+
+\subsection{Dimensions}
+Window (World Coordinates):  $X_{wmin}, X_{wmax}, Y_{wmin}, Y_{wmax}$ \\
+Viewport (Normalized Device Coordinates): $X_{vmin}, X_{vmax}, Y_{vmin}, Y_{vmax}$\\
+Physical (Physicial Device Coordinates): $X_{pmax}, Y_{pmax}$\\
+
+\subsection{Formulas}
+To convert from Master coordinates to World coordinates: \\
+\centerline{Apply \emph{current transformation matrix}}
+
+To convert from WC to NDC:\\
+\begin{equation}
+X_{ndc} = X_{vmin} + (X_{vmax} - X_{vmin})  (X_{wc} - X_{wmin}) / (X_{wmax} - X_{wmin})
+\end{equation}
+\begin{equation}
+Y_{ndc} = Y_{vmin} + (Y_{vmax} - Y_{vmin}) (Y_{wc} - Y_{wmin}) / (Y_{wmax} - Y_{wmin})
+\end{equation}
+
+To convert from NDC to PDC:
+\begin{equation}
+     X_{pdc} = X_{ndc} X_{pmax}
+\end{equation}
+\begin{equation}
+     Y_{pdc} = X_{ndc} Y_{pmax}
+\end{equation}

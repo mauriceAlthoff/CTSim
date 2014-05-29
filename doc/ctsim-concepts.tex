@@ -1,0 +1,408 @@
+\chapter{Concepts}
+\setheader{{\it CHAPTER \thechapter}}{}{}{\ctsimheadtitle}{}{{\it CHAPTER \thechapter}}
+\ctsimfooter
+
+\section{Conceptual Overview}\index{Conceptual overview}
+The operation of \ctsim\ begins with the phantom object.  A
+phantom object consists of geometric elements.  A scanner is
+specified and the collection of x-ray data, or projections, is
+simulated. This projection data can be reconstructed using various
+user-controlled algorithms producing an image of the phantom
+object. These reconstructions can be visually and statistically
+compared to the original phantom object.
+
+In order to use \ctsim\ effectively, some knowledge of how
+\ctsim\ works and the approach taken is required. \ctsim\ deals with a
+variety of object, but the two primary objects that we need to be
+concerned with are the \helprefn{phantom}{conceptphantom} and the
+\helprefn{scanner}{conceptscanner}.
+
+\section{Phantoms}\label{conceptphantom}
+
+\ctsim\ uses geometrical objects to describe the object being
+scanned. A phantom is composed of one or more phantom elements.
+These elements are simple geometric shapes, specifically,
+rectangles, triangles, ellipses, sectors and segments. With these
+elements, the standard phantoms used in the CT literature can be
+constructed.  In fact, \ctsim\ provides a shortcut to load the
+published phantoms of Herman\cite{HERMAN80} and
+Shepp-Logan\cite{SHEPP74}. \ctsim\ also reads text files of
+user-defined phantoms.
+
+The types of phantom elements and their definitions are taken with
+permission from G.T. Herman's publication\cite{HERMAN80}.
+
+\subsection{Phantom File}\label{phantomfile}\index{Phantom!File syntax}
+Each line in the text file describes an element of the
+phantom.  Each line contains seven entries, in the following form:
+\begin{verbatim}
+element-type cx cy dx dy r a
+\end{verbatim}
+The first entry defines the type of the element, either
+\texttt{rectangle}, \texttt{ellipse}, \texttt{triangle},
+\texttt{sector}, or \texttt{segment}.
+
+For all phantom elements, \texttt{r} is the rotation applied to the object in degrees
+counterclockwise and \texttt{a} is the X-ray attenuation
+coefficient of the object. Where objects overlap, the attenuations
+of the overlapped objects are summed.
+
+As opposed to the \texttt{r} and \texttt{a} fields, the \texttt{cx},
+\texttt{cy}, \texttt{dx} and \texttt{dy} fields have different
+meanings depending on the element type.
+
+
+
+\subsection{Phantom Elements}\label{phantomelements}\index{Phantom!Elements}
+
+\subsubsection{ellipse}
+Ellipses use \texttt{dx} and \texttt{dy} to define the semi-major and
+semi-minor axis lengths with the center of the ellipse at \texttt{(cx,cy)}.
+Of note, the commonly used phantom described by
+Shepp and Logan\cite{SHEPP74} uses only ellipses.
+
+\subsubsection{rectangle}
+Rectangles use \texttt{(cx,cy)} to define the position of
+the center of the rectangle with respect to the origin.  \texttt{dx}
+and \texttt{dy} are the half-width and half-height of the rectangle.
+
+\subsubsection{triangle}
+Triangles are drawn with the center of the base at \texttt{(cx,cy)}
+and a base half-width of \texttt{dx} and a height of \texttt{dy}.
+Rotations are then applied about the center of the base.
+
+\subsubsection{segment}
+Segments are complex. They are the portion of an circle between a
+chord and the perimeter of the circle.  \texttt{dy} sets the
+radius of the circle. Segments start with the center of the chord
+located at \texttt{(0,0)} and the chord horizontal. The half-width
+of the chord is set by \texttt{dx}.  The portion of an circle
+lying below the chord is then added. The imaginary center of this
+circle is located at \texttt{(0,-dy)}. The segment is then rotated
+by \texttt{r} and then translated by \texttt{(cx,cy)}.
+
+\subsubsection{sector}
+Sectors are the like a ``pie slice'' from a circle. The radius of
+the circle is set by \texttt{dy}. Sectors are defined similarly to
+segments. In this case, though, a chord is not drawn.  Instead,
+the lines are drawn from the origin of the circle \texttt{(0,-dy)}
+to the points \texttt{(-dx,0)} and \texttt{(dx,0)}. The perimeter
+of the circle is then drawn between those two points and lies
+below the x-axis. The sector is then rotated and translated the
+same as a segment.
+
+\subsection{Phantom Size}\index{Phantom!Size}
+The overall dimensions of the phantom are increased by 1\% above the
+specified sizes to avoid clipping due to round-off errors from
+sampling the polygons of the phantom elements.  So, if the phantom is
+defined as a rectangle of size 0.1 by 0.1, the phantom size is
+0.101 in each direction.
+
+\section{Scanner}\label{conceptscanner}\index{Scanner!Concepts}%
+Understanding the scanning geometry is the most complicated aspect of
+using \ctsim. For real-world CT simulators, this is actually quite
+simple. The geometry is fixed by the manufacturer during the
+construction of the scanner and can not be changed. \ctsim,
+being a very flexible simulator, gives tremendous options in
+setting up the geometry for a scan.
+
+\subsection{Dimensions}
+The geometry for a scan starts with the size of
+the phantom being scanned. This is because \ctsim\ allows for
+statistical comparisons between the original phantom image and
+it's reconstructions. Since CT scanners scan a circular area, the
+first important variable is the diameter of the circle surround
+the phantom, the \emph{phantom diameter}. Remember, as mentioned
+above, the phantom dimensions are padded by 1\%.
+
+The other important geometry variables for scanning phantoms are
+the \emph{view diameter}, \emph{scan diameter}, \emph{focal
+length}, and \emph{center-detector length}. These variables are input into \ctsim\ in terms of
+ratios rather than absolute values.
+
+\subsubsection{Phantom Diameter}\index{Phantom!Diameter}
+The phantom diameter is automatically calculated by \ctsim\ from
+the phantom definition. The maximum of the phantom length and
+height is used to define the square that completely surrounds the
+phantom. Let \latexonly{$p_l$}\latexignore{\emph{Pl}} be the width
+and height of this square. The diameter of this boundary box,
+\latexonly{$p_d$,}\latexignore{\emph{Pd},} is given by the
+Pythagorean theorem and is
+\latexignore{\\\centerline{\emph{Pl x sqrt(2)}}\\}
+\latexonly{\begin{equation}p_d = p_l \sqrt{2}\end{equation}}
+CT scanners collect projections around a
+circle rather than a square. The diameter of this circle is
+the diameter of the boundary square \latexonly{$p_d$.}
+\latexignore{\emph{Pd}.}
+\latexonly{These relationships are diagrammed in figure~\ref{phantomgeomfig}.}
+\begin{figure}
+\centerline{\image{8cm;0cm}{scangeometry.eps}}
+\latexonly{\caption{\label{phantomgeomfig} Phantom Geometry}}
+\end{figure}
+
+\subsubsection{View Diameter}\index{View diameter}
+The \emph{view diameter} is the area that is being processed
+during scanning of phantoms as well as during rasterization of
+phantoms. By default, the \emph{view diameter} is set equal
+to the \emph{phantom diameter}. It may be useful, especially for
+experimental reasons, to process an area larger (and maybe even
+smaller) than the phantom. Thus, during rasterization or during
+projections, \ctsim\ will ask for a \emph{view ratio},
+\latexonly{$v_r$.}\latexignore{\rtfsp \emph{VR}.} The \emph{view
+diameter} is then calculated as
+\latexonly{\begin{equation}v_d = p_dv_r\end{equation}}
+\latexignore{\\\centerline{\emph{Vd = Pd x VR}}\\}
+
+By using a
+\latexonly{$v_r$}\latexignore{\emph{VR}}
+less than 1, \ctsim\ will allow
+for a \emph{view diameter} less than
+\emph{phantom diameter}.
+This will lead to significant artifacts. Physically, this would
+be impossible and is analogous to inserting an object into the CT
+scanner that is larger than the scanner itself!
+
+\subsubsection{Scan Diameter}\index{Scan diameter}
+By default, the entire \emph{view diameter} is scanned. For
+experimental purposes, it may be desirable to scan an area either
+larger or smaller than the \emph{view diameter}. Thus, the concept
+of \emph{scan ratio}, \latexonly{$s_r$,}\latexignore{\emph{SR},}
+arises. The scan diameter,
+\latexonly{$s_d$,}\latexignore{\emph{Sd},} is the diameter over
+which x-rays are collected and is defined as
+\latexonly{\begin{equation}s_d =v_d s_r\end{equation}}
+\latexignore{\\\centerline{\emph{Sd = Vd x SR}}\\}
+By default and
+for all ordinary scanning, the \emph{scan ratio} is to \texttt{1}.
+If the \emph{scan ratio} is less than \texttt{1}, you can expect
+significant artifacts.
+
+\subsubsection{Focal Length}\index{Focal length}
+The \emph{focal length},
+\latexonly{$f$,}\latexignore{\emph{F},}
+is the distance of the X-ray source to the center of
+the phantom. The focal length is set as a ratio,
+\latexonly{$f_r$,}\latexignore{\emph{FR},}
+of the view radius. Focal length is
+calculated as
+\latexonly{\begin{equation}f = (v_d / 2) f_r\end{equation}}
+\latexignore{\\\centerline{\emph{F = (Vd / 2) x FR}}}
+
+For parallel geometry scanning, the focal length doesn't matter.
+However, for divergent geometry scanning (equilinear and equiangular),
+the \emph{focal length ratio} should be set at \texttt{2} or more
+to avoid artifacts. Moreover, a value of less than \texttt{1} is
+physically impossible and it analagous to having the x-ray
+source inside of the \emph{view diameter}.
+
+\subsubsection{Center-Detector Length}\index{Center-Detector length}
+The \emph{center-detector length},
+\latexonly{$c$,}\latexignore{\emph{C},}
+is the distance from the center of
+the phantom to the center of the detector array. The center-detector length is set as a ratio,
+\latexonly{$c_r$,}\latexignore{\emph{CR},}
+of the view radius. The center-detector length is
+calculated as
+\latexonly{\begin{equation}f = (v_d / 2) c_r\end{equation}}
+\latexignore{\\\centerline{\emph{F = (Vd / 2) x CR}}}
+
+For parallel geometry scanning, the center-detector length doesn't matter.
+A value of less than \texttt{1} is physically impossible and it analagous to
+having the detector array inside of the \emph{view diameter}.
+
+
+\subsection{Parallel Geometry}\label{geometryparallel}\index{Parallel geometry}\index{Scanner!Parallel}
+
+The simplest geometry, parallel, was used in first generation
+scanners. As mentioned above, the focal length is not used in this simple
+geometry. The detector array is set to be the same size as the
+\emph{scan diameter}.  For optimal scanning in this geometry, the
+\emph{scan diameter} should be equal to the \emph{phantom
+diameter}. This is accomplished by using the default values of
+\texttt{1} for the \emph{view ratio} and the \emph{scan ratio}. If
+values of less than \texttt{1} are used for these two variables,
+significant distortions will occur.
+
+
+\subsection{Divergent Geometries}\label{geometrydivergent}\index{Equilinear geometry}\index{Equiangular geometry}
+\index{Scanner!Equilinear}\index{Scanner!Equiangular}
+For both equilinear (second generation) and equiangular
+(third, fourth, and fifth generation) geometries,
+the x-ray beams diverge from a single source to a detector array.
+In the equilinear mode, a single
+source produces a fan beam which is read by a linear array of detectors.  If
+the detectors occupy an arc of a circle, then the geometry is equiangular.
+\latexonly{These configurations are shown in figure~\ref{divergentfig}.}
+\begin{figure}
+\centerline{\image{10cm;0cm}{divergent.eps}}
+\latexonly{\caption{\label{divergentfig} Equilinear and equiangular geometries.}}
+\end{figure}
+
+
+\subsubsection{Fan Beam Angle}\index{Fan beam angle}
+For these divergent beam geometries, the \emph{fan beam angle}
+needs to be calculated. For real-world CT scanners, this is fixed
+at the time of manufacture. \ctsim, however, calculates the
+\emph{fan beam angle}, $\alpha$, from the \emph{scan diameter} and
+the \emph{focal length} as
+\latexignore{\centerline{\emph{alpha = 2 x asin (
+(Sd / 2) / f)}}}
+\latexonly{\begin{equation}\label{alphacalc}\alpha = 2 \sin^{-1}
+((s_d / 2) / f)\end{equation}}
+\latexonly{This is illustrated in figure~\ref{alphacalcfig}.}
+\begin{figure}
+\centerline{\image{10cm;0cm}{alphacalc.eps}}
+\latexonly{\caption{\label{alphacalcfig} Calculation of $\alpha$}}
+\end{figure}
+
+
+Empiric testing with \ctsim\ shows that for very large \emph{fan beam angles},
+greater than approximately
+\latexonly{$120^\circ$,}\latexignore{120 degrees,}
+there are significant artifacts. The primary way to manage the
+\emph{fan beam angle} is by varying the \emph{focal length} since the
+\emph{scan diameter} is usually fixed at the size of the phantom.
+
+To illustrate, the \emph{scan diameter} can be defined as
+\latexonly{\begin{equation}s_d = s_r v_r p_d\end{equation}}
+\latexignore{\\\centerline{\emph{Sd = Sr x Vr x Pd}}\\}
+
+Further, the \emph{focal length} can be defined as
+\latexonly{\begin{equation} f = f_r (v_r p_d / 2)\end{equation}}
+\latexignore{\\\centerline{\emph{F = FR x (VR x Pd)$$\\}}}
+
+Substituting these equations into \latexignore{the above
+equation,}\latexonly{equation~\ref{alphacalc},} We have,
+\latexonly{
+\begin{eqnarray}
+\alpha &=& 2\,\sin^{-1} \frac{\displaystyle s_r v_r p_d / 2}{\displaystyle f_r v_r (p_d / 2)} \nonumber \\
+&=& 2\,\sin^{-1} (s_r / f_r)
+\end{eqnarray}
+} \latexignore{\\\centerline{\emph{\alpha = 2 sin (Sr / Fr)}}\\}
+
+Since in normal scanning $s_r$ = 1, $\alpha$ depends only upon the
+\emph{focal length ratio} in normal scanning.
+
+\subsubsection{Detector Array Size}
+In general, you do not need to be concerned with the detector
+array size -- it is automatically calculated by \ctsim. For the
+particularly interested, this section explains how the detector
+array size is calculated.
+
+For parallel geometry, the detector length is simply the scan
+diameter.
+
+For divergent beam geometries, the size of the detector array also
+depends upon the \emph{focal length}: increasing the \emph{focal
+length} decreases the size of the detector array.
+
+For equiangular geometry, the detectors are equally spaced around a arc
+covering an angular distance of $\alpha$ as viewed from the source. When
+viewed from the center of the scanning, the angular distance is
+\latexonly{$$\pi + \alpha - 2 \, \cos^{-1} \Big( \frac{s_d / 2}{c} \Big)$$}
+\latexignore{\\\emph{pi + \alpha - 2 x acos ((Sd / 2) / C))}\\}
+The dotted circle
+\latexonly{in figure~\ref{equiangularfig}}
+indicates the positions of the detectors in this case.
+
+\begin{figure}
+\centerline{\image{10cm;0cm}{equiangular.eps}}
+\latexonly{\caption{\label{equiangularfig}Equiangular geometry}}
+\end{figure}
+
+For equilinear geometry, the detectors are equally spaced along a straight
+line. The detector length depends upon
+\latexonly{$\alpha$}\latexignore{\emph{alpha}} and the \emph{focal
+length}. This length,
+\latexonly{$d_l$,}\latexignore{Dl,} is calculated as
+\latexonly{\begin{equation} d_l = 2\,(f + c) \tan (\alpha / 2)\end{equation}}
+\latexignore{\\\centerline{\emph{2 x (F + C) x tan(\alpha/2)}}}
+\latexonly{This geometry is shown in figure~\ref{equilinearfig}.}
+\begin{figure}
+\centerline{\image{10cm;0cm}{equilinear.eps}}
+\latexonly{\caption{\label{equilinearfig} Equilinear geometry}}
+\end{figure}
+
+
+\section{Reconstruction}\label{conceptreconstruction}\index{Reconstruction overview}%
+
+\subsection{Direct Inverse Fourier}
+This method is not currently implemented in \ctsim; however, it is
+planned for a future release. This method does not give results as
+accurate as filtered backprojection. This is due primarily
+to interpolation occurring in the frequency domain rather than the
+spatial domain.
+
+\subsection{Filtered Backprojection}\index{Filtered backprojection}\index{Symmetric multiprocessing}\index{SMP}
+The technique is comprised of two sequential steps:
+filtering projections followed by backprojecting the filtered projections. Though
+these two steps are sequential, each view position can be processed independently.
+
+\subsubsection{Parallel Computer Processing}\index{Parallel processing}
+Since each view can be processed independently, filtered backprojection is amendable to
+parallel processing. Indeed, this has been used in commercial scanners to speed reconstruction.
+This parallelism is exploited both in the \ctsim\ graphical shell and
+in the \helpref{LAM}{ctsimtextlam} version of \ctsimtext. \ctsim\ can distribute it's workload
+amongst multiple processors working in parallel.
+
+The graphical shell will automatically take advantage of multiple CPU's when
+running on a \emph{Symmetric Multiprocessing}
+computer. Dual-CPU computers are commonly available which provide a near doubling
+in reconstruction speeds. \ctsim, though, has no limits on the number of CPU's
+that can be used in parallel. The \emph{LAM} version
+of \ctsimtext\ is designed to work in a cluster of computers.
+This has been testing with a cluster of 16 computers in a
+\urlref{Beowulf-class}{http://www.beowulf.org} cluster with excellent
+results.
+
+\subsubsection{Filter projections}
+The first step in filtered backprojection reconstructions is the filtering
+of each projection. The projections for a each view have their frequency data multipled by
+a filter of $|w|$. \ctsim\ permits four different ways to accomplish this
+filtering.
+
+Two of the methods use convolution of the projection data with the
+inverse Fourier transform of $|w|$. The other two methods perform an Fourier
+transform of the projection data and multiply that by the $|w|$ filter and
+then perform an inverse fourier transform.
+
+Though multiplying by $|w|$ gives the sharpest reconstructions, in
+practice, superior results are obtained by reducing the higher
+frequencies. This is performed by mutiplying the $|w|$ filter by
+another filter that attenuates the higher frequencies. \ctsim\ has
+multiple filters for this purpose.
+
+\subsubsection{Backprojection of filtered projections}
+Backprojection is the process of ``smearing'' the filtered
+projections over the reconstructing image. Various levels of
+interpolation can be specified.
+
+\section{Image Comparison}\label{conceptimagecompare}\index{Image!Comparison}
+Images can be compared statistically. Three measurements can be calculated
+by \ctsim. They are taken from the standard measurements used by
+Herman\cite{HERMAN80}. They are:
+
+\begin{itemize}\itemsep=0pt
+\item[]\textbf{$d$}\quad The normalized root mean squared distance measure.
+\item[]\textbf{$r$}\quad The normalized mean absolute distance measure.
+\item[]\textbf{$e$}\quad The worst case distance measure over a \latexonly{$2\times2$}\latexignore{\emph{2 x 2}} pixel area.
+\end{itemize}
+
+These measurements are defined in equations \ref{dequation} through \ref{bigrequation}.
+In these equations, $p$ denotes the phantom image, $r$ denotes the reconstruction
+image, and $\bar{p}$ denotes the average pixel value of $p$. Each of the images have a
+size of $m \times n$. In equation \ref{eequation} $[n/2]$ and $[m/2]$ denote the largest
+integers less than $n/2$ and $m/2$, respectively.
+
+\latexignore{These formulas are shown in the print documentation of \ctsim.}
+%
+%Tex2RTF can not handle the any subscripts or superscripts for the inner summation unless
+% have a space character before the \sum
+\latexonly{\begin{equation}\label{dequation} d =\sqrt{\frac{\displaystyle \sum_{i=1}^{n}{ \sum_{j=1}^{m}{(p_{i,j} - r_{i,j})^2}}}{\displaystyle \sum_{i=1}^{n}{ \sum_{j=1}^{m}{(p_{i,j} - \bar{p})^2}}}}\end{equation}}
+\latexonly{\begin{equation}\label{requation}r = \frac{ \displaystyle \sum_{i=1}^{n}{ \sum_{j=1}^{m}{|p_{i,j} - r_{i,j}|}}}{ \displaystyle \sum_{i=1}^{n}{ \sum_{j=1}^{m}{|p_{i,j}|}}}\end{equation}}
+\latexonly{\begin{equation}\label{eequation}e = \max_{1 \le k \le [n/2] \atop 1 \le l \le [m/2]}(|P_{k,l} - R_{k,l}|)\end{equation}}
+\latexonly{where}
+\latexonly{\begin{equation}\label{bigpequation}P_{k,l} = \textstyle \frac{1}{4} (p_{2k,2l} + p_{2k+1,2l} + p_{2k,2l+l} + p_{2k+1,2l+1})\end{equation}}
+\latexonly{\begin{equation}\label{bigrequation}R_{k,l} = \textstyle \frac{1}{4} (r_{2k,2l} + r_{2k+1,2l} + r_{2k,2l+1} + r_{2k+1,2l+1})\end{equation}}
+\begin{comment}
+\end{comment}

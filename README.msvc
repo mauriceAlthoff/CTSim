@@ -1,0 +1,25 @@
+Guidelines for using Microsoft Visual C++ to compile CTSim
+----------------------------------------------------------
+
+A MSVC v6 workspace is located at msvc/ctsim.dsw. It references
+several projects included in this CTSim distribution (table 1).  It
+also references projects located outside of the distribution (table
+2).
+
+Table 1
+-------
+Projects inside distribution
+
+msvc\libctsim\libctsim.dsp
+msvc\pjrec\pjrec.dsp
+
+
+Table 2
+-------
+Projects outside distribution
+
+..\wx2
+..\fftw-2.1.3\
+..\fftw-2.1.3\
+..\zlib
+..\lpng108\

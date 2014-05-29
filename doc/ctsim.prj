@@ -1,0 +1,89 @@
+143 Patch Control
+
+1
+1
+1
+ctsim.tex
+21
+0
+0
+
+
+ctsim-algorithms.tex
+TeX
+268439547 0 179 17 187 1 44 44 960 631
+ctsim-concepts.tex
+TeX
+268447738 0 302 40 280 44 110 110 1187 697
+ctsim.tex
+TeX
+402665466 0 50 12 33 1 22 22 1099 609
+ctsim-install.tex
+TeX
+268447738 0 70 62 71 1 110 110 1187 697
+tex2rtf.ini
+DATA
+273777330 0 0 1 26 8 22 22 938 609
+ctsim-gui.tex
+TeX
+268447738 0 145 21 144 1 176 176 1253 763
+psbox.tex
+TeX
+268439546 0 0 1 0 1 88 88 1004 675
+ctsim-sgp.tex
+TeX
+268439546 0 1 1 0 1 44 44 960 631
+ctsim-appendix.tex
+TeX
+268447738 0 0 1 0 2 44 44 1121 631
+ctsim-textui.tex
+TeX
+12282 0 38 45 38 46 198 198 1275 785
+mytitle.sty
+DATA
+273679026 0 9 1 8 22 66 66 1143 653
+ctsim-web.tex
+TeX
+268447739 0 24 50 0 60 88 88 1165 675
+C:\Program Files\SecureCRT 3.0\download\ct.tex
+TeX
+268439546 0 3 1 600 1 132 132 1048 719
+texhelp.sty
+DATA
+273679026 0 112 14 92 1 176 176 1253 763
+makeidx.sty
+DATA
+273679026 0 0 1 0 1 110 110 1187 697
+verbatim.sty
+DATA
+273679026 0 0 1 150 2 88 88 1165 675
+mysober.sty
+DATA
+273679026 0 0 1 153 1 22 22 1099 609
+fancyhea.sty
+DATA
+273679026 0 0 1 144 1 264 264 1341 851
+ctsim-gui.aux
+DATA
+273679026 0 0 1 0 1 154 154 1231 741
+C:\Program Files\WinEdt\WinEdt.txt
+ASCII
+273688506 0 0 1 936 20 0 0 1077 587
+cut
+TeX
+268447739 0 3 1 3 1 66 66 1143 653
+
+*ctsim.tex
+>
+*psbox.tex
+>
+*psbjoin.aux
+<
+*ctsim-concepts
+*ctsim-gui
+*ctsim-textui
+*ctsim-web
+*ctsim-install
+*ctsim-algorithms
+*ctsim-sgp
+<

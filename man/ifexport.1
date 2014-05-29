@@ -1,0 +1,55 @@
+.\"  -*- nroff -*-
+.\"
+.\" ifexport.1
+.\"
+.\" Author: Kevin Rosenberg <kevin@ctsim.org>
+.\"
+.\" $Id: ifexport.1,v 1.5 2002/05/03 10:28:17 kevin Exp $
+.Dd April 19, 2000
+.Dt IFEXPORT 1
+.Os
+.Sh NAME
+.Nm ifexport
+.Nd IF (Image File) to Image
+.Sh SYNOPSIS
+.Nm ifexport iffile outfile [OPTIONS]
+.Sh DESCRIPTION 
+.Pp
+.Nm 
+converts an 2D IF file to a viewable image file. 
+.Pp
+The options are as follows:
+.Bl -tag -width Ds
+.It Fl Fl format Ar format-name
+Choose output image format
+.It Fl Fl center Ar center-mode
+Choose center of window (default is mode)
+.It Fl Fl auto Ar auto-mode
+Set automatic window mode (default is full)
+.It Fl Fl scaling Ar multiple
+Set scaling factor for output image (default is 1)
+.It Fl Fl min Ar minimum
+Set minimum intensity of window (overrides \-\-auto)
+.It Fl Fl max Ar maximum
+Set maximum intensity of window (overrides \-\-auto)
+.It Fl Fl stats
+Print image statistics
+.It Fl Fl labels
+Print IF labels
+.It Fl Fl debug
+Set debug mode
+.It Fl Fl verbose
+Set verbose mode
+.It Fl Fl version
+Print version
+.It Fl Fl help
+Print terse help summary
+.El
+.Sh AUTHORS
+Kevin Rosenberg, M.D. <kevin@ctsim.org>
+.Sh HISTORY
+CTSim was begun in 1983 using MS-DOS and an EGA display adapter. In 1999 it was ported to GNU/Linux and later ported to Microsoft Windows.
+.Sh SEE ALSO
+ctsim (1), ctsimtext (1), if1 (1), if2 (1), ifinfo (1), linogram (1),
+phm2helix (1), phm2if (1), phm2pj (1), pj2if (1), pjHinterp (1),
+pjinfo (1), pjrec (1)

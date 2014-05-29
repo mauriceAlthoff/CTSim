@@ -1,0 +1,122 @@
+OVERVIEW
+========
+
+CTSim simulates the process of collecting tomographic X-ray data of
+phantom objects. These X-ray data through the objects are called
+projections. CTSim reconstructs the original phantom image from the
+projections using a variety of algorithms.
+
+CTSim is open-source and is covered by the GNU Public License (GPL). 
+
+Please enjoy CTSim. I'd like to hear any feedback
+
+Kevin M. Rosenberg, M.D.
+kevin@rosenberg.net
+
+
+HISTORY
+=======
+
+CTSim development began in 1983 while I was in medical school.  It was
+written using Lattice C and MS-DOS. I used 8086 assembly language to
+code convolution and backprojection routes and also to write graphics
+directly to an IBM EGA video adapter.
+
+In 1999, I ported CTsim to GNU/Linux. In April 2000, the source code 
+for CTSim was published on the Internet.
+
+In June 2000, entire code for revised and converted to C++.
+
+
+WHERE
+=====
+
+The official home for CTsim is http://www.ctsim.org.
+
+
+FEATURES
+========
+
+Several standard phantom objects are built-in. Other phantoms can be
+loaded from ASCII files.
+
+CTsim uses cross-platform compatible file formats for projection data and 
+image data.
+
+
+THE PROGRAMS
+============
+
+ctsim - a graphical user interface for most functions. This programs
+has all of the functionality of the command line tools except for
+image comparison functions.
+
+phm2if - generates an image file of a phantom object
+
+phm2pj - Simulates the collection of CT data, or projections, of a
+phantom object
+
+pjrec - Performs an CT reconstruction, also known as image
+reconstruction from projections. Reads a projection file and writes a
+SDF file.
+
+pj2if - Converts projection data to a raw sinugram image
+
+pjinfo - Show information on a projection file
+
+ifexport - Converts an image file to a variety of 8-bit and 16-bit image
+formats
+
+if1 - Performs operations on a single image file
+
+if2 - Performs operations on two image files, such as comparisons
+
+ifinfo - Show statistics and history labels of image files
+
+
+TYPICAL USAGE
+=============
+
+Graphical User Interface
+------------------------
+
+Use ctsim.
+
+
+Command Line Interface
+----------------------
+
+When evaluating CT simulation, in general, these steps are followed:
+
+Create a phantom image and viewable image file
+  phm2if ...
+  ifexport ...
+
+Simulate CT data collection and create a viewable image of raw projections
+  phm2pj ...
+  pj2if ...
+  ifexport ...
+
+Perform CT reconstruction and create viewable image file
+  pjrec ...
+  ifexport ...
+
+Display image information and comparative statistics
+  ifinfo ...
+
+There is a sample shell script installed called 'sample-ctsim.sh' 
+in the tools direction that performs the above commands.
+
+These functions can be invoked via a web interface with a CGI program 
+as described in the INSTALL file.
+
+
+COPYRIGHT
+=========
+This program is written by Kevin M. Rosenberg, M.D.
+
+It is covered by the GNU General Public License (GPL) which
+allows copying and modifying this code with restrictions. See the
+file COPYING for complete details.
+
+

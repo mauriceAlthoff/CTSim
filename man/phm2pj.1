@@ -1,0 +1,116 @@
+.\" -*- NROFF -*-
+.\" 
+.TH "phm2pj" "1" "" "Kevin Rosenberg" "Engineering"
+.SH "NAME"
+phm2pj \- calculate projections through a phantom object.
+
+.SH "SYNOPSIS"
+.B phm2pj outfile ndet nview [\-\-phantom phantom\-name] [\-\-phmfile filename] [OPTIONS]
+.SH "DESCRIPTION "
+\fIphm2pj\fP calculates projections through a phantom object, either a
+predefined \-\-phantom or a \-\-phmfile.
+.SH "OPTIONS"
+.TP 16
+.B \-\-outfile          
+Name of output file for projections
+.TP 16
+.B \-\-ndet             
+Number of detectors
+
+.TP 16
+.B \-\-nview            
+Number of rotated views
+
+.TP 16
+.B \-\-phantom        
+Predefined phantom to use for projection: can be one of 
+.RS
+.TP 16
+.B herman        
+Herman head phantom
+.TP 16
+.B herman\-b      
+Herman head phantom (Bordered)
+.TP 16
+.B shepp\-logan   
+Shepp\-Logan head phantom
+.TP 16
+.B shepp\-logan\-b 
+Shepp\-Logan head phantom (Bordered)
+.TP 16
+.B  unitpulse     
+Unit pulse phantom
+.RE
+.TP 16
+.B \-\-phmfile \fIname\fP 
+Get Phantom from phantom file 
+.TP 16
+.B \-\-desc           
+Description of raysum
+.TP 16
+.B \-\-nray           
+Number of rays per detector (default = 1)
+.TP 16
+.B \-\-rotangle       
+Degrees to rotate view through (multiple of PI) (default = 1)
+.TP 16
+.B \-\-geometry       
+Geometry of scanning
+.RS
+.TP 16
+.B parallel
+Parallel scan beams (default)
+.TP 16
+.B equilinear
+Equilinear divergent scan beams
+.TP 16
+.B equiangular   
+Equiangular divergent scan beams
+.RE
+.TP 16
+.B \-\-focal\-length   
+Focal length ratio (ratio to radius of phantom) (default = 1)
+.TP 16
+.B \-\-field\-of\-view  
+Field of view (ratio to diameter of phantom square) (default = 1)
+.TP 16
+.B \-\-trace          
+Trace level to use, one of:
+.RS 
+.TP 
+.B none 
+No tracing (default)
+.TP 16
+.B console 
+Trace text level
+.RE
+.TP 16
+.B \-\-verbose        
+Verbose mode
+.TP 16
+.B \-\-debug          
+Debug mode
+.TP 16
+.B \-\-version        
+Print version
+.TP 16
+.B \-\-help           
+Print a terse help message
+.SH "AUTHORS"
+Kevin Rosenberg, M.D. <kevin@ctsim.org>
+.SH "HISTORY"
+CTSim was begun in 1983 using MS\-DOS and an EGA display adapter. In
+1999 it was ported to GNU/Linux and later ported to Microsoft Windows.
+.SH "SEE ALSO"
+.BR ctsim (1)
+.BR ctsimtext (1)
+.BR if1 (1)
+.BR if2 (1)
+.BR ifinfo (1)
+.BR linogram (1)
+.BR phm2helix (1)
+.BR phm2if (1)
+.BR pj2if (1)
+.BR pjHinterp (1)
+.BR pjinfo (1)
+.BR pjrec (1)

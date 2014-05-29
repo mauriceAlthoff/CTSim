@@ -1,0 +1,57 @@
+.\" -*- NROFF -*-
+.\" 
+.\" if1.1
+.\" 
+.\" Author: Kevin Rosenberg <kevin@ctsim.org>
+.\" 
+.\" $Id: if1.1,v 1.5 2002/05/03 10:45:52 kevin Exp $
+.\" 
+.TH "if1" "1" "" "Kevin M. Rosenberg" "Engineering"
+.SH "NAME"
+if1 \- Single IF (Image File) Transformation
+.SH "SYNOPSIS"
+.B if1 iffile outfile [OPTIONS]
+.SH "DESCRIPTION "
+\fIif1\fP transforms a single IF file.
+.SH "OPTIONS"
+\fIif1\fP accepts the following options:
+.TP 16 
+.B \-\-invert
+Inverts (negates) the image.
+.TP 16
+.B \-\-log
+Natural logrithm of image.
+.TP 16
+.B \-\-exp
+Natural exponential of image.
+.TP 16
+.B \-\-debug
+Set debug mode.
+.TP 16
+.B \-\-verbose
+Set verbose mode.
+.TP 16
+.B \-\-version
+Print version.
+.TP 16
+.B \-\-help
+Print terse help summary.
+.SH "AUTHORS"
+Kevin Rosenberg, M.D. <kevin@ctsim.org>
+.SH "HISTORY"
+CTSim was begun in 1983 using MS\-DOS and an EGA display adapter. In
+1999 it was ported to GNU/Linux and later ported to Microsoft Windows.
+.SH "SEE ALSO"
+.BR ctsim (1)
+.BR ctsimtext (1)
+.BR if2 (1)
+.BR ifexport (1)
+.BR ifinfo (1)
+.BR linogram (1)
+.BR phm2helix (1)
+.BR phm2if (1)
+.BR phm2pj (1)
+.BR pj2if (1)
+.BR pjHinterp (1)
+.BR pjinfo (1)
+.BR pjrec (1)

@@ -1,0 +1,660 @@
+\chapter{The Graphical User Interface}\label{ctsim}\index{ctsim}\index{Graphical interface}%
+\setheader{{\it CHAPTER \thechapter}}{}{}{\ctsimheadtitle}{}{{\it CHAPTER \thechapter}}%
+\ctsimfooter%
+
+
+\ctsim\ is the graphical shell for the CTSim project. This shell uses
+the \urlref{wxWindows}{http://www.wxwindows.org} library for
+cross-platform compatibility. The graphical shell is compatible with
+Microsoft Windows, \urlref{GTK}{http://www.gtk.org}, and
+\urlref{Motif}{http://www.openmotif.org} graphical environments.
+
+\section{Starting CTSim}
+\usage \texttt{ctsim [files to open...]}
+
+You can invoke \ctsim\ by itself on the command line, or include any
+number of files that you want \ctsim\ to automatically open. \ctsim\
+can open projection files, image files, phantom files, and plot files.
+
+On Microsoft Windows platforms, the simplest way to invoke \ctsim\ is
+via the \emph{Start} menu under the \emph{Programs} sub-menu.
+
+\section{Quick Start}\label{IDH_QUICKSTART}\index{Quick Start}
+The fastest way to put \ctsim\ through it's basic operation is:
+\begin{enumerate}\itemsep=0pt
+\item \texttt{File - Create Phantom...} \\
+This creates a window with the geometric phantom. Choose the \texttt{Herman} head phantom.
+\item \texttt{Process - Rasterize...} \\
+This creates an image file of the phantom by converting it from a
+geometric definition into a rasterized image. You may use the defaults
+shown in the dialog box.
+\item \texttt{View - Auto...} \\
+Use this command on the new rasterized image window. This will optimize the intensity scale for
+viewing the soft-tissue details of the phantom. Select the \texttt{median} center and
+a standard deviation factor of \texttt{0.1}.
+\item \texttt{Process - Projections...} \\
+Use this command on the geometric phantom window. This simulates the collection of x-ray
+data. You may use the defaults shown in the dialog box. Additionally, you may wish to turn on
+\texttt{Trace - Projections} to watch to x-ray data being simulated.
+\item \texttt{Reconstruction - Filtered Backprojection...} \\
+Use this command on the projection window. This will reconstruct an image
+from the projections. Once again, you may use the defaults shown in the dialog box.
+\item \texttt{View - Auto...} \\
+Use this command on the new reconstructed image window. This will optimize the intensity scale for
+viewing the soft-tissue details of the reconstruction. Select the \texttt{median} center and
+a standard deviation factor of \texttt{0.1}.
+\item \texttt{Analyze - Compare Images...} \\
+Use this command on the rasterized phantom image window. This will bring up a dialog box
+asking for the comparison image. Select the reconstruction image that you just made and also select the "Make difference image"
+check box. You'll then see the image distance measurements and also a new window with the difference between the rasterized
+phantom and the reconstruction.
+\item \textbf{That's it!} You have just performed the basic operations with \ctsim. By varying the parameters of the rasterization,
+projection, and reconstructions you perform endless computed tomography experiments. \ctsim\ also has many other visualization
+and analysis features that you learn more about by reading the manual.
+\end{enumerate}
+
+\section{File Types}\index{File types}
+
+\subsection{Phantom}
+Besides loading phantom files from the disk, the Herman\cite{HERMAN80} and
+Shepp-Logan\cite{SHEPP74} phantoms are built-in to \ctsim. Phantom files can be
+read from and written to the disk. Phantom files are stored in a simple
+ASCII format. A text editor is required to
+create and edit these files.
+
+\subsection{Image}
+Image files contain 2-dimensional arrays that store 4-byte floating
+point values. Images files can be either real or complex-valued.
+Typically, all images are real-valued except for images that have been
+processed by Fourier transforms. As you might expect,
+complex-valued images are twice the size of real-valued images
+since both a real and imaginary component need to be stored. When
+complex-valued images are viewed on the screen, only the real
+component is displayed.
+
+Images files can    store any number of text labels. \ctsim\ uses
+these labels for recording history information regarding
+the creation and modifications of images.
+
+\subsection{Projection}
+Projection files are created from phantom files via the
+projection process. Numerous options are available for the
+creation of the these files. The files are stored in a binary
+format with cross-platform compatibility on little and big-endian
+architectures.
+
+\subsection{Plot}
+Plot files are created by \ctsim\ during analysis of image files.
+They can be read from and written to the disk. They are stored as ASCII
+files for easy cross-platform support and editing.
+
+\section{Global Menu Commands}
+These global commands are present on the menus of all windows.
+
+\subsection{File - Create Phantom}\label{IDH_DLG_PHANTOM}\index{Dialog!Create phantom}
+This command displays a dialog box showing the phantoms that are pre-programmed
+into \ctsim. After selecting one of these phantoms, the new window with that
+phantom will be generated. The pre-programmed phantoms are:
+
+\begin{twocollist}
+\twocolitem{\textbf{Herman}}{The Herman head phantom\cite{HERMAN80}}
+\twocolitem{\textbf{Shepp-Logan}}{The head phantom of Shepp \& Logan\cite{SHEPP74}}
+\twocolitem{\textbf{Unit pulse}}{A phantom that has a value of \texttt{1} for the
+center of the phantom and \texttt{0} everywhere else.}
+\end{twocollist}
+
+\subsection{File - Create Filter}\label{IDH_DLG_FILTER}\index{Dialog!Create filter}
+This command displays a dialog box showing the pre-programmed filters
+of \ctsim. This command will create a 2-dimensional image of the selected filter.
+The center of the filter is at the center of the image.
+
+These filters can be created in their natural frequency domain or in their inverse
+spatial domain.
+
+\begin{twocollist}
+\twocolitem{\textbf{Filter}}{Selects the filter to generate. The available filters are:
+
+\begin{itemize}\itemsep=0pt
+\item $|w|$ Bandlimit
+\item $|w|$ Hamming
+\item $|w|$ Hanning
+\item $|w|$ Cosine
+\item $|w|$ Sinc
+\item Shepp
+\item Bandlimit
+\item Sinc
+\item Hamming
+\item Hanning
+\item Cosine
+\item Triangle
+\end{itemize}
+}
+\twocolitem{\textbf{Domain}}{Selects either the \texttt{Frequency} or \texttt{Spatial} domain. The filters have the
+frequency domain as their natural domain. The spatial domain is obtained either analytically or performing
+an inverse Fourier transformation.}
+\twocolitem{\textbf{X Size}}{Number of columns in the output image.}
+\twocolitem{\textbf{Y Size}}{Number of rows in the output image.}
+\twocolitem{\textbf{Hamming Parameter}}{ This parameter adjusts the smoothing of the Hamming
+filter and can range from \texttt{0} to \texttt{1}.
+At a setting of \texttt{1}, the Hamming filter is the same as the bandlimit filter.
+At a setting of \texttt{0.54}, the Hamming filter is the same as the Hanning
+window.}
+\twocolitem{\textbf{Bandwidth}}{Sets the bandwidth of the filter.}
+\end{twocollist}
+
+\begin{twocollist}
+\twocolitem{\textbf{Axis (input) Scale}}{Sets the scale for the filter input. By default, the input to the filter is
+the distance in pixels from the center of the image. By changing this value, one can set a scale the input to the filter.
+For example, if the output image is \texttt{101} by \texttt{101} pixels and thus the center of the image is at \texttt{(50,50)}, then a pixel
+lying at point \texttt{100,50} would be 50 units from the center of the filter. By applying an \texttt{Axis scale} of
+\texttt{0.1}, then that point would be scaled to 5 units from the center of the filter.}
+\twocolitem{\textbf{Filter (output) Scale}}{Multiplies the output of the filter by this amount. By default, the filter has a maximum
+value of \texttt{1}.}
+\end{twocollist}
+
+\subsection{File - Import}\label{IDH_DLG_IMPORT}
+This command allows the importing of non-\ctsim\ file formats into
+\ctsim.  \texttt{PPM} and \texttt{PNG} formats will be read into an
+imagefile window. Color images will be converted to grayscale. If a
+\texttt{DICOM} library was linked in with your version of \ctsim,
+then you can also import \texttt{DICOM} projection files and image
+files.
+
+\subsection{File - Preferences}\label{IDH_DLG_PREFERENCES}\index{Dialog!Preferences}
+This command displays a dialog box that allows users to control
+the behavior of \ctsim. These options are saved across \ctsim\ sessions.
+Under Microsoft Windows environments, they are stored in the registry.
+On UNIX and Linux environments, they are stored in the user's home
+directory with the filename of \texttt{.ctsim}.
+
+\begin{twocollist}
+\twocolitem{\textbf{Advanced options}}{This option is initially turned off in new installations.
+These advanced options are not required for normal simulations. When \texttt{Advanced
+Options} is set, \ctsim\ will display more options during scanning of phantoms and
+the reconstruction of projections.}
+
+\twocolitem{\textbf{Ask before closing new documents}}{This option is initially turned on in
+new installations. With this option set, \ctsim\ will ask before closing
+documents that have been modified or never saved on disk. By turning off
+this option, \ctsim\ will never ask if you want to save a file -- you'll
+be responsible for saving any files that you create.}
+
+\twocolitem{\textbf{Verbose logging}}{This option is initially turned off in
+new installations. With this option set, \ctsim\ will log more events than
+usual. There extra events are not important for viewing with typical operation of
+\ctsim.}
+
+\twocolitem{\textbf{Show startup tips}}{This option is initially turned on in
+new installations. With this option set, \ctsim\ will display
+helpful tips when \ctsim\ is started.}
+
+\twocolitem{\textbf{Run background tasks}}{This option is initially turned off in
+new installations. With this option set, \ctsim\ execute lengthy calculations in the
+background. A background window will appear when processes are running in the background
+and will disappear when no background processes are executing. This background window shows
+the status and progress of all background processes. 
+\textbf{NOTE:} Due to limitations of \texttt{wxWindows}, this function is
+only supported on Microsoft Windows.
+}
+
+\end{twocollist}
+
+\subsection{File - Open}
+This command opens a file section dialog box. Of special consideration
+is the \texttt{File Type} combo box on the bottom of the dialog. You need
+to set the this combo box to the type of file that you wish to open.
+
+\subsection{File - Save}
+This command saves the contents of the active window. If the window hasn't
+been named, a dialog box will open asking for the file name to use.
+
+\subsection{File - Close}
+As one would expect, this closes the active window. If the contents of the window have not been
+saved and the \emph{Advanced Preferences} option \texttt{Ask before closing new documents}
+is turned on, then you will be prompted if decide if you want to save the contents of the window
+prior to closing.
+
+\subsection{File - Save As}
+Allows the saving of the contents of the active window to any file name.
+
+\subsection{Help - Contents}
+This command displays the online help.
+
+\subsection{Help - Tips}
+This command displays a dialog with tips on using \ctsim.
+
+\subsection{Help - Quick Start}
+This command displays a recommend approach to helping new users learn to use \ctsim.
+
+\subsection{Help - About}
+This command shows the version number and operating environment of \ctsim.
+
+
+\section{Phantom Menus}
+
+\subsection{Properties}
+Displays the properties of a phantom which includes:
+
+\begin{itemize}\itemsep=0pt
+\item Overall dimensions of a phantom
+\item A list of all component phantom elements
+\end{itemize}
+
+\subsection{Process - Rasterize}\label{IDH_DLG_RASTERIZE}\index{Dialog!Rasterize}
+This creates an image file from a phantom. Technically, it
+converts the phantom from a vector (infinite resolution) object
+into a 2-dimension array of floating-point pixels. The parameters
+to set are:
+
+\begin{twocollist}
+\twocolitem{\textbf{X size}}{Number of columns in image file}
+\twocolitem{\textbf{Y size}}{Number of rows in image file}
+\twocolitem{\textbf{Samples per pixel}}{Numbers of samples taken
+per pixel in both the x and y directions. For example, if the
+\texttt{Samples per pixel} is set to \texttt{3}, then for every
+pixel in the image file 9 samples \latexonly{($3\times3$)}\latexignore{(3 x 3)}
+are averaged.}
+\end{twocollist}
+
+\subsection{Process - Projections}\label{IDH_DLG_PROJECTIONS}\index{Dialog!Projections}
+This command creates a projection file from a phantom. The options
+available when collecting projections are:
+
+\begin{twocollist}
+\twocolitem{\textbf{Geometry}}{Sets the scanner geometry. The available geometries are:
+  \begin{itemize}\itemsep=0pt
+    \item \texttt{Parallel}
+    \item \texttt{Equiangular}
+    \item \texttt{Equilinear}
+  \end{itemize}}
+\twocolitem{\textbf{Number of detectors}}{Sets the number of
+detectors in the detector array.}
+
+\twocolitem{\textbf{Number of views}}{Sets the number of views
+to collect.}
+
+\twocolitem{\textbf{Samples per detector}}{Sets the number of
+samples collected for each detector.}
+
+\twocolitem{\textbf{View Ratio}}{Sets the field of view as a ratio
+of the diameter of the phantom.  For normal scanning, use a value of
+\texttt{1.0}.}
+
+\twocolitem{\textbf{Scan Ratio}}{Sets the length of scanning as a
+ratio of the view diameter. For normal scanning, use a value of \texttt{1.0}.}
+
+\twocolitem{\textbf{Focal length ratio}}{Sets the distance between the
+radiation source and the center of the phantom as a
+ratio of the radius of the phantom. For parallel geometries, a value
+of \texttt{1.0} is optimal. For other
+geometries, this should be at least \texttt{2.0} to avoid artifacts.}
+\end{twocollist}
+
+\textbf{Advanced Options}
+
+These options are visible only if \emph{Advanced Options} has been
+selected in the \texttt{File - Preferences} dialog. These parameters
+default to optimal settings and don't need to be adjusted except
+by expert users.
+
+\begin{twocollist}
+\twocolitem{\textbf{Rotation Angle}}{Sets the rotation amount as a
+fraction of a circle. For parallel geometries use a rotation angle of \texttt{0.5}
+and for equilinear and equiangular geometries use a rotation angle
+of \texttt{1}. Using any other rotation angle will lead to artifacts.}
+\end{twocollist}
+
+
+
+\section{Image Menus}
+\subsection{File - Properties}
+Properties of image files include:
+\begin{itemize}\itemsep=0pt
+  \item Whether the image is real or complex-valued.
+  \item Numeric statistics (minimum, maximum, mean, median, mode, and standard deviation).
+  \item History labels (text descriptions of the processing for this image).
+\end{itemize}
+
+\subsection{File - Export}\label{IDH_DLG_EXPORT}\index{Image!Export}
+This command allows for exporting image files to a standard
+graphics file format. This is helpful when you want to take an
+image and import it into another application. The current
+\helprefn{intensity scale}{intensityscale} is used when exporting
+the file. The supported graphic formats are:
+
+\begin{twocollist}
+\twocolitem{\textbf{PNG}}{Portable Network Graphics format. This uses 8-bits or
+256 shades of gray.}
+\twocolitem{\textbf{PNG-16}}{This is a 16-bit version of PNG which allows for
+65536 shades of gray.}
+\twocolitem{\textbf{PGM}}{Portable Graymap format. This is a common format used on
+UNIX systems.}
+\twocolitem{\textbf{PGM ASCII}}{ASCII version of PGM.}
+\end{twocollist}
+
+
+\subsection{View}
+\subsubsection{Intensity Scale}\label{intensityscale}\index{Intensity scale}
+These commands are used change the intensity scale for viewing the image.
+These commands do not change the image data. When the minimum value is
+set, then the color pure black is assigned to that image value. Similarly,
+when the maximum value is set, the the color pure white is assigned to that
+image value.
+
+Changing the intensity scale is useful when examining different image features.
+In clinical medicine, the intensity scale is often changed to examine bone
+(high value) versus soft-tissue (medium value) features.
+
+\subsubsection{Set}\label{IDH_DLG_MINMAX}
+This command displays a dialog box that sets the lower
+and upper values to display.
+
+\subsubsection{Auto}\label{IDH_DLG_AUTOSCALE}\index{Auto scale}
+This command displays a dialog box that allows \ctsim\ to automatically
+make an intensity scale. The parameters that \ctsim\ needs to make this
+automatic scale are:
+
+\begin{twocollist}
+\twocolitem{\textbf{Center}}{This sets the center of the intensity scale. Currently,
+\ctsim\ allows you to use either the mean, mode, or median of the image
+as the center of the intensity scale.}
+
+\twocolitem{\textbf{Width}}{This sets the half-width of the intensity scale. The half-width
+is specified as a multiple of the standard deviation.}
+\end{twocollist}
+
+As an example, if \texttt{median} is selected as the center and
+\texttt{0.5} is selected as the width, the the minimum value will
+be \latexonly{$median - 0.5 \times standardDeviation$}\latexignore{\emph{median - 0.5 x standardDeviation}}
+and the maximum value will be \latexonly{$median + 0.5 \times standardDeviation$.}\latexignore{\emph{
+median + 0.5 x standardDeviation}.}
+
+\subsubsection{Full}
+This command resets the intensity scale to the full scale of the image.
+
+\subsection{Image}
+These commands create a new image based upon the current image,
+and for some commands, also upon a comparison image.
+
+\subsubsection{Add, Subtract, Multiply, Divide}
+These are simple arithmetic operations. \ctsim\ will display a dialog
+box showing all of the currently opened image files that are the
+same size as the active image. After the selection of a compatible image,
+\ctsim\ will perform the arithmetic operation on the two images and
+make a new result image.
+
+\subsubsection{Image Size}
+This command will generate a new image based on the current image. The new
+image can be scaled to any size. A dialog
+appears asking for the size of the new image. Bilinear interpolation
+is used when calculating the new image.
+
+\subsubsection{3-D Conversion}
+This command generates a 3-dimensional view of the current phantom. This view can be
+rotated in three dimensions. The left and right arrow control the z-axis
+rotation and the up and down arrows control the x-axis rotation. The y-axis
+rotation is controlled by the \texttt{T} and \texttt{Y} keys. Other options
+are presented on the \texttt{View} menu and include:
+
+\begin{itemize}\itemsep=0pt
+\item Surface plot versus wireframe plot.
+\item Smooth shading versus flat shading.
+\item Lighting on or off.
+\item Color scale on or off.
+\end{itemize}
+
+\subsection{Filter}\index{Image!Filter}
+These commands filter and modify the image
+
+\subsubsection{Arithmetic}
+These commands operate on the image on a pixel-by-pixel basis. The commands
+support both real and complex-valued images. The available arithmetic commards are:
+
+\begin{twocollist}
+  \twocolitem{\textbf{Invert}}{Negate pixel values.}
+  \twocolitem{\textbf{Log}}{Take natural logrithm of pixel values.}
+  \twocolitem{\textbf{Exp}}{Take natural exponent of pixel values.}
+  \twocolitem{\textbf{Square}}{Take square of pixel values.}
+  \twocolitem{\textbf{Square root}}{Take square root of pixel values.}
+\end{twocollist}
+
+
+\subsubsection{Frequency Based}
+These commands perform Fourier and inverse Fourier transformations of
+images. By default, the transformations will automatically convert
+images between Fourier to natural orders as expected. For example, \texttt{2-D FFT}
+will transform the points into natural order after the Fourier transform.
+Similarly the inverse, \texttt{2-D IFFT}, will reorder the points from
+natural order to Fourier order before applying the inverse Fourier transformation.
+
+As you would expect, images that undergo frequency filtering will be complex-valued
+after than filtering. Only the real component is shown by \ctsim. However, \ctsim\ does
+have options for converting a complex-valued image into a real-valued image via
+the \texttt{Magnitude} and \texttt{Phase} filtering commands.
+
+The available frequency-based filtering commards are:
+
+\begin{itemize}\itemsep=0pt
+\item 2-D FFT
+\item 2-D IFFT
+\item FFT Rows
+\item IFFT Rows
+\item FFT Columns
+\item IFFT Columns
+\item 2-D Fourier
+\item 2-D Inverse Fourier
+\item Shuffle Fourier to Natural Order
+\item Shuffle Natural to Fourier Order
+\item Magnitude
+\item Phase
+\end{itemize}
+
+\subsection{Analyze - Plot}
+The commands plot rows and columns of images. There are commands
+that perform FFT transformations prior to plotting. To select
+the row or column to plot, click the left mouse button over the
+desired cursor point.
+
+The available plot commands are:
+\begin{itemize}\itemsep=0pt
+\item Plot Row
+\item Plot Column
+\item Plot Histogram
+\item Plot FFT Row
+\item Plot FFT Col
+\end{itemize}
+
+\subsection{Analyze - Compare}\label{IDH_DLG_COMPARISON}\index{Image!Comparison}
+This command performs statistical comparisons between two images. An option
+also exists for generating a difference image from the two input images.
+
+The three distance measures reported are:
+\begin{itemize}\itemsep=0pt
+\item[] \textbf{$d$}\quad The normalized root mean squared distance measure.
+\item[] \textbf{$r$}\quad The normalized mean absolute distance measure.
+\item[] \textbf{$e$}\quad The worst case distance measure over a \latexonly{$2\times2$}\latexignore{\emph{2 x 2}} pixel area.
+\end{itemize}
+
+There are also commands for comparison plotting of rows and columns from two images.
+This is quite helpful when comparing a phantom to a reconstruction. As with plotting
+of rows and columns, click the left mouse button over the desired cursor point to
+choose which row and column to plot.
+
+
+\section{Projection Menus}
+
+\subsection{File - Properties}
+The displayed properties include:
+
+\begin{itemize}\itemsep=0pt
+\item Number of detectors in the projections.
+\item Number of views.
+\item The parameters used when generating the projections from the phantom.
+\end{itemize}
+
+\subsection{Process - Convert Rectangular}
+The commands takes the projection data and creates an image file using
+the projection data.
+
+\subsection{Process - Convert Polar}\label{IDH_DLG_POLAR}\index{Polar conversion}
+This command creates an image file with the polar conversion of the projection data.
+The parameters to set are:
+
+\begin{twocollist}
+\twocolitem{\textbf{X Size}}{Number of columns in output image.}
+\twocolitem{\textbf{Y Ssize}}{Number of rows in output image.}
+\twocolitem{\textbf{Interpolation}}{Selects the interpolation method.
+Currently, the \texttt{bilinear} option provides the highest
+quality interpolation.}
+\end{twocollist}
+
+\subsection{Convert - Convert FFT Polar}
+The parameters for this option are the same as the \helprefn{Convert
+Polar Dialog}{convertpolardialog}. For this command, though, the
+projections are Fourier transformed prior to conversion to polar
+image.
+
+\subsection{Convert - Interpolate to Parallel}
+This command filters divergent projection data (equiangular or
+equilinear) and interpolates (or rebins) to estimate the projection
+data if the projections had been collected with parallel geometry.
+
+\subsection{Analyze - Plot Histogram}
+Plots a histogram of projection data attenuations.
+
+\subsection{Analyze - Plot T-Theta Sampling}
+Plots a 2-dimensional scattergram showing the \texttt{T} and
+\texttt{Theta} values for each data point in the projection data.
+This is especially instructive when scanning with divergent
+geometries and the scan ratio is close to \texttt{1}.
+
+\subsubsection{Theta Range}\label{IDH_DLG_THETA_RANGE}
+This dialog box allows the constraint of Theta values for the
+T-Theta Sampling scattergram. 
+
+\subsection{Reconstruct - Filtered Backprojection}\label{IDH_DLG_RECONSTRUCTION}\index{Dialog!Reconstruction}
+This command displays a dialog to set the parameters for reconstructing an image from projections
+using the filtered backprojection technique. The parameters available are:
+
+\begin{twocollist}
+\twocolitem{\textbf{Filter}}{Selects the filter to apply to each
+projection. To properly reconstruct an image, this filter should
+consist of the the absolute value of distance from zero
+frequency optionally multiplied by a smoothing filter. The optimal
+filters to use are:
+\begin{itemize}\itemsep=0pt
+\item \texttt{abs\_bandlimit}
+\item \texttt{abs\_hamming}
+\item \texttt{abs\_hanning}
+\item \texttt{abs\_cosine}
+\end{itemize}
+} \twocolitem{\textbf{Hamming parameter}}{Sets the alpha level for
+Hamming window. This parameter adjusts the smoothing of the Hamming
+filter and can range from \texttt{0} to \texttt{1}.
+At a setting of \texttt{1}, the Hamming filter is the same as the bandlimit filter.
+At a setting of \texttt{0.54}, the Hamming filter is the same as the Hanning
+window.}
+\twocolitem{\textbf{Filter Method}}{Selects the filtering method.
+For large numbers of detectors, the FFT-based filters are preferred whereas for
+smaller numbers of detectors \texttt{convolution} can be
+faster. When \emph{Advanced Options} have been turned off, this menu only shows
+the two basic choices: \texttt{convolution} and \texttt{FFT}. However, when
+\emph{Advanced Options} have been turned on, additional selections are available as
+discussed in the next section.
+}
+\twocolitem{\textbf{Interpolation}}{Interpolation technique during backprojection.
+\texttt{cubic} has optimal quality when the
+data is smooth. Smooth data is obtained by taking many projections and/or
+using a smoothing filter. In the absence of smooth data, \texttt{linear} gives better results and
+is also many times faster than cubic interpolation.
+
+\begin{itemize}\itemsep=0pt
+\item \texttt{nearest} - No interpolation, selects nearest point.
+\item \texttt{linear} - Uses fast straight line interpolation.
+\item \texttt{cubic} - Uses cubic interpolating polynomial.
+\end{itemize}
+}
+\end{twocollist}
+
+\textbf{Advanced Options}
+
+These options are visible only if \emph{Advanced Options} has been
+selected in the \texttt{File - Preferences} dialog. These parameters
+default to optimal settings and don't need to be adjusted except
+by expert users.
+
+\begin{twocollist}
+\twocolitem{\textbf{Filter Method}}{Selects the filtering method.
+The general comments about this parameter given the previous section still apply.
+With \emph{Advanced Options} on, the full set of filter methods are available:
+\begin{itemize}\itemsep=0pt
+\item \texttt{convolution}
+\item \texttt{fourier} - Uses simple Fourier transform.
+\item \texttt{fourier-table} - Optimizes Fourier transform by precalculating trigometric functions.
+\item \texttt{fftw} - Uses complex-valued Fourier transform with the \emph{fftw} library.
+\item \texttt{rfftw} - Uses optimized real/half-complex Fourier transform.
+\end{itemize}
+}
+\twocolitem{\textbf{Backprojection}}{Selects the backprojection
+technique. A setting of \texttt{idiff} is optimal.
+\begin{itemize}\itemsep=0pt
+\item \texttt{trig} - Use trigometric functions at each image point.
+\item \texttt{table} - Use precalculated trigometric tables.
+\item \texttt{diff} - Use difference method to iterate within image.
+\item \texttt{idiff} - Use integer iteration techique.
+\end{itemize}
+}
+
+\twocolitem{\textbf{Filter Generation}}{Selects the filter
+generation. With convolution, \texttt{direct} is the proper method
+to select. With any of the frequency methods,
+\texttt{inverse-fourier} is the best method.
+\begin{itemize}\itemsep=0pt
+\item \texttt{direct}
+\item \texttt{inverse-fourier}
+\end{itemize}
+}
+
+\twocolitem{\textbf{Zeropad}}{Zeropad factor when using
+frequency-based filtering. A setting of \texttt{1} is optimal whereas
+a setting of \texttt{0} disables zero padding. Settings greater than \texttt{1}
+perform larger amounts of zero padding but without any significant benefit.}
+
+\twocolitem{\textbf{ROI}}{These four settings control the
+\textit{region of interest} for the reconstruction. The default values
+match the dimensions of the entire phantom. By constraining the ROI to
+be a smaller square, the reconstruction will be magnified.}
+
+\end{twocollist}
+
+\subsection{Reconstruct - Filtered Backprojection (Rebin to Parallel)}\label{IDH_DLG_RECONSTRUCTION_REBIN}\index{Dialog!ReconstructionRebin}
+The command reconstructs the projection data via filtered backprojection
+as described above. As opposed to the above command, this command also
+rebins divergent projection data to parallel prior to reconstruction.
+This greatly speeds reconstruction of divergent geometry projections.
+
+\section{Plot Menus}
+\subsection{File - Properties}
+The displayed properties include:
+
+\begin{itemize}\itemsep=0pt
+\item the number of curves in the plot and the number of points per curve.
+\item the EZPlot commands used to format the plot are displayed.
+\item history labels from the originating image(s) and the plot function.
+\end{itemize}
+
+\subsection{View Menu}
+These commands set the scaling for the y-axis. They are analogous
+to the options used for setting the intensity scale for images.
+
+\subsubsection{Set}
+This command sets the upper and lower limits for the y-axis.
+
+\subsubsection{Auto}
+This command automatically sets the upper and lower limits for the
+y-axis. Please refer to the image file \helpref{\texttt{View - Auto}}{IDH_DLG_AUTOSCALE}
+documentation for the details.
+
+\subsubsection{Full}
+The command resets the upper and lower limits of the y-axis to the
+minimum and maximum values of the curves.

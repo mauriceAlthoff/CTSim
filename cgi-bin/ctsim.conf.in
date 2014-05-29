@@ -1,0 +1,11 @@
+# @configure_input@
+
+$::bindir = "@prefix@/bin";
+$::lamrundir = "@prefix@/bin";
+$::jobdir = "@webdatadir@";
+$::datadir = "@webdatadir@";
+$::url_datadir = "@webdataurl@";
+$::mpi_enable = "@mpienable@";
+$::single_process_only = 1;
+
+1;

@@ -1,0 +1,17 @@
+Composite Test
+==============
+
+Pentium 4 2.8GHz:
+   19.6s (i386)        
+   19.6s (Pentium)      0%
+   18.7s (Pentium 3)    5%
+   14.3s (Pentium 4)   28%
+
+Athlon MP 1800+
+   23.7s (i386)
+   21.0s (Athlon)      11%
+   21.0s (Athlon-MP)   11%
+
+Opteron 250:
+   10.4s (x86_64)
+

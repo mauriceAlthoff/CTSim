@@ -1,0 +1,194 @@
+Microsoft Developer Studio Workspace File, Format Version 6.00
+# WARNING: DO NOT EDIT OR DELETE THIS WORKSPACE FILE!
+
+###############################################################################
+
+Project: "FFTW2st"="..\..\fftw-2.1.3\Win32\FFTW2st\FFTW2st.dsp" - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "RFFTW2st"="..\..\fftw-2.1.3\Win32\RFFTW2st\RFFTW2st.dsp" - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "ctn_lib"=..\..\ctn\winctn\ctn_lib\ctn_lib.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "ctsim"=.\ctsim\ctsim.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name libctsim
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "ctsimtext"=.\ctsimtext\ctsimtext.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name libctsim
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "jpeg"=..\..\wx2\src\jpeg\JpegVC.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "libctsim"=.\libctsim\libctsim.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name png
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name tiff
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name wxvc
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name xpm
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name zlib
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name FFTW2st
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name jpeg
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name RFFTW2st
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name ctn_lib
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "png"=..\..\wx2\src\png\PngVC.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "tiff"=..\..\wx2\src\tiff\TiffVC.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "wxvc"=..\..\wx2\src\wxvc.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "xpm"=..\..\wx2\src\xpm\XpmVC.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "zlib"=..\..\wx2\src\zlib\ZlibVC.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Global:
+
+Package=<5>
+{{{
+}}}
+
+Package=<3>
+{{{
+}}}
+
+###############################################################################
+

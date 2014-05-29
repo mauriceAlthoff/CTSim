@@ -1,0 +1,319 @@
+\chapter{The Command Line Interface}\label{ctsimtext}\index{ctsimtext}\index{Command line interface}
+\setheader{{\it CHAPTER \thechapter}}{}{}{\ctsimheadtitle}{}{{\it CHAPTER \thechapter}}%
+\ctsimfooter%
+
+\ctsimtext\ is the master shell for all of the command-line tools. The
+command-line tools can perform most of the functions of the graphical
+shell. These command-line tools are especially appropriate for use on
+systems without graphical capability or for batch processing, shell scripting,
+and parallel processing.
+
+\section{Starting ctsimtext}
+\ctsimtext\ can be invoked via three different
+methods.
+\begin{enumerate}\itemsep=3pt
+\item \ctsimtext\ can executed without any parameters. In that case,
+\ctsimtext\ offers a command-line to enter the function-names and
+their parameters. The output of the command is displayed. Further
+commands may be given to \ctsimtext. The shell is exited by the
+\texttt{quit} command. \ctsimtext\ uses the
+\urlref{readline}{http://www.gnu.org} library on UNIX and Linux platforms
+to provide command history processing.
+
+\item \ctsimtext\ can also be called to
+execute a single command. This is especially useful for batch
+files containing multiple \ctsimtext\ commands. This is invoked by
+calling\\ \texttt{ctsimtext function-name parameters...}.
+
+\item Using operating systems that support soft or hard linking of
+files (such as UNIX and Linux), the executable file \ctsimtext\ can
+be linked to the function names. This is automatically done by
+the installation program and the \texttt{rpm} manager. Thus, to use \ctsimtext\ with the
+function name \texttt{pjrec}, the below command can be executed:\\
+\hspace*{1.5cm}\texttt{pjrec parameters...} \\
+as a shortcut to the equivalent command \\
+\hspace*{1.5cm}\texttt{ctsimtext pjrec parameters...}
+
+\end{enumerate}
+
+\section{Parallel Processing}\label{ctsimtextlam}\index{Parallel processing}\index{MPI}\index{LAM}
+\ctsimtext\ can distribute it's processing over a cluster. Specifically,
+\ctsimtext\ supports the \urlref{LAM}{http://www.mpi.nd.edu/lam} version of
+the MPI environment. On platforms with LAM installed, a parallel version of
+\ctsimtext\ is created. The name of this program is \texttt{ctsimtext-lam}.
+The functions that take advantage of the parallel processing are:
+
+\begin{itemize}\itemsep=0pt
+\item \texttt{phm2if}
+\item \texttt{phm2pj}
+\item \texttt{pjrec}
+\end{itemize}
+
+This parallel processing version has been tested with excellent results on
+a 16-CPU \urlref{Beowulf}{http://www.beowulf.org} cluster.
+
+
+\section{if1}\label{if1}\index{if1}%
+Performs math functions on a single image. The commands works with
+both real and complex-valued images.
+
+\usage
+\texttt{if1 input-filename output-filename [options...]}
+
+\textbf{Options}
+
+\begin{twocollist}
+  \twocolitem{\doublehyphen{invert}}{Negate pixel values.}
+  \twocolitem{\doublehyphen{log}}{Take natural logrithm of pixel values.}
+  \twocolitem{\doublehyphen{exp}}{Take natural exponent of pixel values.}
+  \twocolitem{\doublehyphen{sqr}}{Take square of pixel values.}
+  \twocolitem{\doublehyphen{sqrt}}{Take square root of pixel values.}
+\end{twocollist}
+
+\section{if2}\label{if2}\index{if2}%
+Performs math functions on a two images. The command works with both
+real and complex-valued images.
+
+\usage
+\texttt{if2 input-filename1 input-filename2 output-filename [options...]}
+
+\textbf{Options}
+
+\begin{twocollist}
+  \twocolitem{\doublehyphen{add}}{Add the two images.}
+  \twocolitem{\doublehyphen{sub}}{Subtract the two images.}
+  \twocolitem{\doublehyphen{multiply}}{Multiply the two images.}
+  \twocolitem{\doublehyphen{divide}}{Divide the two images.}
+  \twocolitem{\doublehyphen{comp}}{Statistically compare the two images. The standard
+  \helpref{three distance measurements}{conceptimagecompare} are reported.}
+  \twocolitem{\doublehyphen{column-plot n}}{Plot the values of a particular column. The plot file is saved to disk.}
+  \twocolitem{\doublehyphen{row-plot n}}{Plot the values of a particular row. The plot file is saved to disk.}
+\end{twocollist}
+
+\section{ifexport}\label{ifexport}\index{ifexport}%
+Export an image file to a standard graphics file.
+
+\usage
+\texttt{ifexport input-filename output-filename [options...]}
+
+\textbf{Options}
+
+\begin{twocollist}
+  \twocolitem{\doublehyphen{format}}{
+  \begin{itemize}\itemsep=0pt
+    \item \texttt{png} - Portable network graphics format. This is the default output format.
+    \item \texttt{png16} - 16-bit PNG format.
+    \item \texttt{pgm} - Portable graymap format, binary format.
+    \item \texttt{pgmasc} - ASCII PGM format.
+  \end{itemize}}
+  \twocolitem{\doublehyphen{center}}{Set center of intensity window.
+  \begin{itemize}\itemsep=0pt
+    \item \texttt{median}
+    \item \texttt{mode}
+    \item \texttt{mean}
+  \end{itemize}}
+  \twocolitem{\doublehyphen{auto}}{Set half-width of intensity window as a multiple of the standard deviation.
+  \begin{itemize}\itemsep=0pt
+     \item \texttt{full}
+     \item \texttt{std0.1}
+     \item \texttt{std0.5}
+     \item \texttt{std1}
+     \item \texttt{std2}
+     \item \texttt{std3}
+  \end{itemize}}
+  \twocolitem{\doublehyphen{scale}}{Set size of output image. A value of
+  \texttt{1} is default and creates an output image the same size as the input image. A value of \texttt{2} will double the
+  size of the output image.}
+  \twocolitem{\doublehyphen{min}}{Set the minimum intensity value.}
+  \twocolitem{\doublehyphen{max}}{Set the maximum intensity value.}
+\end{twocollist}
+
+\section{ifinfo}\label{ifinfo}\index{ifinfo}%
+
+Displays information about an image file. By default, history labels and image statistics are displayed.
+
+\usage
+\texttt{ifinfo input-filename [options...]}
+
+\textbf{Options}
+
+\begin{twocollist}
+  \twocolitem{\doublehyphen{no-labels}}{Suppress history labels.}
+  \twocolitem{\doublehyphen{no-stats}}{Suppress image statistics.}
+\end{twocollist}
+
+\section{phm2pj}\label{phm2pj}\index{phm2pj}%
+Simulates collection of X-rays data (projections) around a phantom object.
+
+\usage
+\texttt{phm2pj projection-filename number-detectors number-views [options...]}
+
+\textbf{Options}
+
+\begin{twocollist}
+\twocolitem{\doublehyphen{phantom}}{Select a standard phantom.
+\begin{itemize}\itemsep=0pt
+\item \texttt{herman}
+\item \texttt{shepp-logan}
+\item \texttt{unit-pulse}
+\end{itemize}
+}
+\twocolitem{\doublehyphen{phmfile}}{Reads a user-created phantom file.}
+
+\twocolitem{\doublehyphen{geometry}}{Sets the scanner geometry. Valid values are:
+  \begin{itemize}\itemsep=0pt
+    \item \texttt{parallel}
+    \item \texttt{equiangular}
+    \item \texttt{equilinear}
+  \end{itemize}
+}
+
+\twocolitem{\doublehyphen{nray}}{ Number of samples per each detector}
+
+\twocolitem{\doublehyphen{rotangle}}{The rotation angle as a fraction of a circle.
+For parallel geometries use a rotation angle of \texttt{0.5} and for equilinear and equiangular
+geometries use a rotation angle of \texttt{1}. The default is to use to
+appropriate rotation angle based on the geometry.}
+
+\twocolitem{\doublehyphen{view-ratio}}{Sets the field of view as a ratio of the diameter of the phantom.
+    For normal scanning, the default value of \texttt{1.0} is optimal.}
+
+\twocolitem{\doublehyphen{scan-ratio}}{Sets the length of scanning as a ratio of the view diameter.
+    For normal scanning, the default value of \texttt{1.0} is optimal.}
+
+\twocolitem{\doublehyphen{focal-length}}{Sets the distance between the radiation source
+ and the center of the object as a ratio of the radius of the object.
+   For parallel geometries, a value of \texttt{1.0} is optimal. For other
+    geometries, this should be at least \texttt{2.0} to avoid artifacts. The default value is \texttt{2}.}
+\end{twocollist}
+
+
+\section{phm2if}\label{phm2if}\index{phm2if}%
+Generates a raster image file based on a phantom.
+
+\usage
+\texttt{phm2if phantom-filename image-filename x-image-size y-image-size [options...]}
+
+\textbf{Options}
+
+\begin{twocollist}
+  \twocolitem{\doublehyphen{nsamples}}{Number of samples in x and y directions per pixel}
+  \twocolitem{\doublehyphen{view-ratio}}{Sets the view ratio. For normal scanning,
+  the default value of \texttt{1.0} is optimal.}
+\end{twocollist}
+
+\section{pj2if}\label{pj2if}\index{pj2if}%
+Convert a projection file into an image file where each row of the
+image file contains the projection data from a single view.
+
+\usage
+\texttt{pj2if projection-filename image-filename [options...]}
+
+\textbf{Options}
+
+\begin{twocollist}
+\twocolitem{\doublehyphen{dump}}{Print all projection data to the console.}
+\end{twocollist}
+
+\section{pjinfo}\label{pjinfo}\index{pjinfo}%
+Displays information about a projection file.
+
+\usage
+\texttt{pjinfo projection-filename [options...]}
+
+\textbf{Options}
+
+\begin{twocollist}
+  \twocolitem{\doublehyphen{binaryheader}}{Dump the binary header to the standard output.
+  This option is only used when manually creating a composite projection file from
+  several different projection files.}
+  \twocolitem{\doublehyphen{binaryview}}{Dump binary view data to the standard output.
+  This option is only used when manually creating a composite projection file from
+  several different projection files.}
+  \twocolitem{\doublehyphen{startview}}{Sets starting view to display. Default is \texttt{0}.}
+  \twocolitem{\doublehyphen{endview}}{Sets ending view to display. Default is the last view.}
+  \twocolitem{\doublehyphen{dump}}{Print all projection data to the console.}
+\end{twocollist}
+
+\section{pjrec}\label{pjrec}\index{pjrec}%
+Reconstructs the interior of an object from a projection file.
+
+\usage
+\texttt{pjrec projection-filename image-filename image-cols image-rows [options...]}
+
+\textbf{Options}
+
+\begin{twocollist}
+\twocolitemruled{\textbf{Parameter}}{\textbf{Options}}
+\twocolitem{\doublehyphen{filter}}{Selects which filter to apply to
+each projection. To properly reconstruct an image, this filter should
+consist of the the absolute value of distance from zero
+frequency optionally multiplied by a smoothing filter. The optimal
+filters to use are:
+\begin{itemize}\itemsep=0pt
+\item \texttt{abs\_bandlimit}
+\item \texttt{abs\_cosine}
+\item \texttt{abs\_hamming}
+\item \texttt{abs\_hanning}
+\end{itemize}
+} \twocolitem{\doublehyphen{filter-parameter}}{Sets the alpha level
+for Hamming window.  This parameter adjusts the smoothing of the Hamming
+filter and can range from \texttt{0} to \texttt{1}.
+At a setting of \texttt{1}, the Hamming filter is the same as the bandlimit filter.
+At a setting of \texttt{0.54}, the Hamming filter is the same as the Hanning
+window.}
+
+\twocolitem{\doublehyphen{filter-method}}{Selects the filtering
+method. For large numbers of detectors, \texttt{rfftw} is optimal.
+For smaller numbers of detectors, \texttt{convolution} might be a
+bit faster.
+\begin{itemize}\itemsep=0pt
+\item \texttt{convolution}
+\item \texttt{fourier} - Uses simple Fourier transform.
+\item \texttt{fourier-table} - Optimizes Fourier transform by precalculating trigometric functions.
+\item \texttt{fftw} - Uses complex-valued Fourier transform with the \emph{fftw} library.
+\item \texttt{rfftw} - Uses optimized real/half-complex Fourier transform.
+\end{itemize}
+}
+\end{twocollist}
+
+\begin{twocollist}
+\twocolitem{\doublehyphen{filter-generation}}{Selects the filter
+generation. With convolution, \texttt{direct} is the proper method
+to select. With any of the frequency methods,
+\texttt{inverse-fourier} is the best method.
+\begin{itemize}\itemsep=0pt
+\item \texttt{direct}
+\item \texttt{inverse-fourier}
+\end{itemize}
+}
+
+\twocolitem{\doublehyphen{interpolation}}{Interpolation technique during backprojection.
+\texttt{cubic} has optimal quality when the
+data is smooth. Smooth data is obtained by taking many projections and/or
+using a smoothing filter. In the absence of smooth data, \texttt{linear} gives better results and
+is many times faster than cubic interpolation.
+
+\begin{itemize}\itemsep=0pt
+\item \texttt{nearest} - No interpolation, selects nearest point.
+\item \texttt{linear} - Uses fast straight line interpolation.
+\item \texttt{cubic} - Uses cubic interpolating polynomial.
+\end{itemize}
+}
+
+\twocolitem{\doublehyphen{backprojection}}{Selects the
+backprojection technique. A setting of \texttt{idiff} is optimal.
+\begin{itemize}\itemsep=0pt
+\item \texttt{trig} - Use trigometric functions at each image point.
+\item \texttt{table} - Use precalculated trigometric tables.
+\item \texttt{diff} - Use difference method to iterate within image.
+\item \texttt{idiff} - Use integer iteration technique.
+\end{itemize}
+}
+
+\twocolitem{\doublehyphen{zeropad}}{Zeropad factor. A setting of
+\texttt{1} is optimal whereas a zeropad of \texttt{0} performs no zero padding.
+Settings greater than \texttt{1} perform additional zero padding, but without
+any significant output difference.}
+
+\end{twocollist}

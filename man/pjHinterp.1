@@ -1,0 +1,57 @@
+.\" -*- NROFF -*-
+.\" 
+.TH "pjHinterp" "1" "" "Kevin Rosenberg and Ian Kay" "Engineering"
+.SH "NAME"
+pjHinterp \- interpolate helical data in projection space.
+.SH "SYNOPSIS"
+.B pjHinterp projfile interpfile [OPTIONS]
+.SH "DESCRIPTION "
+\fIpjHinterp\fP interpolates the helical data in projfile
+and writes the results in interpfile.
+.SH "OPTIONS"
+.TP 16
+.B \-\-field\-of\-view  
+Field of view (ratio to diameter of phantom square) (default = 1)
+.TP 16
+.B \-\-trace          
+Trace level to use, one of:
+.RS 
+.TP 
+.B none 
+No tracing (default)
+.TP 16
+.B console 
+Trace text level
+.RE
+.TP 16
+.B \-\-verbose        
+Verbose mode
+.TP 16
+.B \-\-debug          
+Debug mode
+.TP 16
+.B \-\-version        
+Print version
+.TP 16
+.B \-\-help           
+Print a terse help message
+
+.SH "AUTHORS"
+Ian Kay, Ph.D.
+Kevin Rosenberg, M.D. <kevin@ctsim.org>
+.SH "HISTORY"
+CTSim was begun in 1983 using MS\-DOS and an EGA display adapter. In
+1999 it was ported to GNU/Linux and later ported to Microsoft Windows.
+.SH "SEE ALSO"
+.BR ctsim (1)
+.BR ctsimtext (1)
+.BR if1 (1)
+.BR if2 (1)
+.BR ifinfo (1)
+.BR linogram (1)
+.BR phm2helix (1)
+.BR phm2if (1)
+.BR phm2pj (1)
+.BR pj2if (1)
+.BR pjinfo (1)
+.BR pjrec (1)

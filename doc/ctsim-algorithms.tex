@@ -1,0 +1,187 @@
+\chapter{Algorithms}\label{algorihms}\index{Algorithms}
+\setheader{{\it Appendix \thechapter}}{}{}{\ctsimheadtitle}{}{{\it Appendix \thechapter}}%
+\ctsimfooter%
+
+\ctsim\ uses a number of interesting algorithms. This appendix details some
+of the techniques that \ctsim\ uses.
+
+\section{Phantom Processing}\label{phantomprocessing}
+\textbf{Key Concepts}\\
+\hspace*{1cm}\texttt{Geometric transformations}\\
+\hspace*{1cm}\texttt{Matrix algebra}\\
+
+Phantom objects are processed in two different ways: rasterization
+and projections. \ctsim\ uses optimized techniques to perform
+those procedures.
+
+The primary tool used to optimize these processes is
+\emph{Geometric transformations}. For every primitive
+\helpref{phantom element}{phantomelements}, a standardized
+configuration is defined. This standard configuration is used to
+speed the process of collecting projections.
+
+In general, to transform an object into the standard
+configuration, the following sequence of transformations occur.
+When this sequence is performed, the coordinates are termed the
+\emph{normalized phantom element} coordinates.
+
+\begin{itemize}
+\item Scaling by the inverse of its size, that is usually
+scaling by \texttt{(1/dx,1/dy)}.
+\item Translating the object to the origin, that is usually translation by
+\texttt{(-cx,-cy)}.
+\item Rotating the object by \texttt{-r}.
+\end{itemize}
+
+These steps can by combined into a single matrix multiplication
+which involves only 4 multiplications and 6 additions to transform
+both \texttt{x} and \texttt{y} coordinates. This matrix is
+precalculated and stored when the phantom is created. Similarly,
+the inverse of the matrix is precalculated and store to perform
+the inverse of this transformation.
+
+As an example of this technique, consider the problem of finding
+the length of an arbitrary line that may intersect an arbitary
+ellipse. Define the endpoints of the line by \texttt{(x1,y1)} and
+\texttt{(x2,y2)}.
+
+\begin{enumerate}
+\item First, transform the coordinates into the normalized
+phantom element coordinates. At this point, the ellipse will have
+been transformed into a unit circle centered at \texttt{(0,0)}.
+\item Translate the
+coordinates by \texttt{(-x1,-y2)}. The line now has the endpoint
+centered at the origin. The ellipse will now have its center at
+\texttt{(-x1,-y1)}.
+\item Rotate the coordinates by the negative of angle of the line
+with respect to the x-axis.
+\end{enumerate}
+
+At this point the line will now lie along the positive x-axis with
+one end at \texttt{(0,0)}. The circle will be rotated around the
+origin as well. At this point, it is fairly trivial to calculate
+the length of the intersection of the line with the unit circle.
+For example, if the \texttt{y} coordinate for the center of the
+circle is greater than \texttt{1} or less than \texttt{-1}, then
+we know that the unit circle doesn't intersect the line at all and
+stop further processing. Otherwise, the endpoints of the
+intersection of the line with the unit circle is a simple
+calculation.
+
+Those new, intersected endpoints are then inverse transformed by
+reverse of the above transformation sequence. After the inverse
+translation, the transformed endpoints will be the endpoints of
+the line that intersect the actual ellipse prior to any
+transformations.
+
+Though this sequence of events is somewhat complex, it is quite
+fast since the multiple transformations can be combined into a
+single matrix multiplication. Further, this technique is amendable
+to rapidly calculating the intersection of a line with any of the
+phantom elements that \ctsim\ supports.
+
+\section{Background Processing}\label{backgroundprocessing}\index{Background processing}
+\textbf{Key Concepts}\\
+\hspace*{1cm}\texttt{Multithreading}\\
+\hspace*{1cm}\texttt{Critical sections}\\
+\hspace*{1cm}\texttt{Message passing}\\
+\hspace*{1cm}\texttt{Re-entrant code}\\
+
+The \ctsim\ graphical shell can optionally perform background
+processing. \ctsim\ uses threads as tools to achieve this
+functionality. Using multiple threads, termed
+\emph{multithreading}, allows \ctsim\ to:
+
+\begin{itemize}
+\item Execute a lengthy calculation in the background while the graphical shell remains
+available for use.
+\item Automatically take advantage of multiple central processing units (CPU's) in a
+symmetric multiprocessing (SMP) computer.
+\end{itemize}
+
+When background processing option is turned on or when \ctsim\ is
+running on a SMP computer, and \ctsim\ is directed to perform
+reconstruction, rasterization, or projections, \ctsim\ will spawn
+a \emph{Background Supervisor} thread. This supervisor thread then
+creates a \emph{Supervisor Event Handler} (supervisor).  The
+supervisor communicates with the rest of graphical user interface
+of  \ctsim\ by using message passing to avoid issues with
+re-entrant code.
+
+The supervisor registers itself via message passing with the
+\emph{Background Manager} which will display the execution
+progress in a pop-up window. The supervisor also registers itself
+with the document being processed. This is done so that if the
+document is closed, the document can send a message to the
+supervisor directing the supervisor to cancel the calculation.
+
+After registering with \ctsim\ components, the supervisor creates
+\emph{Worker Threads}. These worker threads are the processes that
+actually perform the calculations. By default, \ctsim\ will create
+one worker thread for every CPU in the system. As the workers
+complete unit blocks, they notify the supervisor. The supervisor
+then sends progress messages to background manager which displays
+a gauge of the progress.
+
+As the worker threads directly call the supervisor, it is crucial
+to lock the class data structures with \emph{Critical Sections}.
+Critical sections lock areas of code and prevent more than one
+thread to access a section of code at a time. This is used when
+maintaining the tables of worker threads in the supervisor.
+
+After the workers have completed their tasks, they notify the
+supervisor. When all the workers have finished, the supervisor
+kills the worker threads. The supervisor then collates the work
+units from the workers and sends a message to \ctsim\ to create a
+new window to display the finished work.
+
+The supervisor then deregisters itself via messages with the
+background manager and the document. The background manager
+removes the progress gauge from its display and resizes its
+window. Finally, the background supervisor exits and background
+supervisor thread terminates.
+
+This functionality has been compartmentalized into inheritable C++
+classes \texttt{BackgroundSupervisor},
+\texttt{BackgroundWorkerThread}, and
+\texttt{BackgroundProcessingDocument}. These classes serve as base
+classes for the reconstruction, rasterization, and projection
+multithreading classes.
+
+\subsection{Advantages}
+This structure may seem more complex than is necessary, but it has
+several advantages:
+
+\begin{itemize}
+\item Since the background threads do not directly call objects in the graphical
+user interface thread, problems with re-entrant code in the
+graphical interface are eliminated.
+\item A supervisor can parallel process with any number of worker threads
+to take advantage of potentially large numbers of CPU's in SMP
+computers.
+\item Allows for continued user-interaction with \ctsim\ while lengthy calculations
+are performed in the background.
+\end{itemize}
+
+\subsection{Disadvantages}
+
+The above advantages are not free of cost. The disadvantages
+include:
+
+\begin{itemize}
+\item Increased memory usage.\\
+ The workers threads allocate memory to store their intermediate
+results. When the worker threads finish, the supervisor allocates
+memory for the final result and collates the results for the
+workers. This collation results in a doubling of the memory
+requirements. Of course, after collation the supervisor releases
+the memory used by the workers.
+\item Slower execution on single CPU systems. \\
+Creating multiple threads, sending progress messages to the
+background manager, and collation of results for worker threads
+adds overhead compared to simply calculating the result directly
+in the foreground. On single CPU systems this results in slower
+processing compared to foreground processing. On dual-CPU and
+greater SMP systems, though, the advantage of using multiple CPU's
+in parallel exceeds the overhead of background processing.
+\end{itemize}

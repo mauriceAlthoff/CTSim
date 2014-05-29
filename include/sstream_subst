@@ -1,0 +1,115 @@
+#ifndef __CM_SSTREAM__
+#define __CM_SSTREAM__
+
+#if 0
+//#ifndef MSVC
+
+#include <string>
+#include <cstdio>
+#include <strstream>
+#include <algorithm>
+
+namespace std {
+
+class ostringstream
+{
+public:
+    ostringstream (const string & str = "")
+        : buffer(str) {}
+
+    const string & str() const
+    {
+        return buffer;
+    }
+
+    void str (const string & new_string)
+    {
+        buffer = new_string;
+    }
+
+    ostringstream & operator<< (const string & item)
+    {
+        buffer += item;
+
+        return *this;
+    }
+
+    ostringstream & operator<< (int item)
+    {
+        char temp[100];
+
+        sprintf (temp, "%d", item);
+        buffer += temp;
+
+        return *this;
+    }
+
+    ostringstream & operator<< (unsigned int item)
+    {
+        char temp[100];
+
+        sprintf (temp, "%u", item);
+        buffer += temp;
+
+        return *this;
+    }
+
+    ostringstream & operator<< (char item)
+    {
+        buffer += item;
+        return *this;
+    }
+
+    ostringstream & operator<< (double item)
+    {
+        char temp[1000];
+
+        sprintf (temp, "%g", item);
+        buffer += temp;
+
+        return *this;
+    }
+
+private:
+    string buffer;
+};
+
+
+
+class istringstream
+{
+    friend istringstream & getline (istringstream &, string &, char = '\n');
+
+public:
+    istringstream (const string & str = "")
+        : buffer (str.c_str(), str.length()) {}
+
+    template <class T>
+    istringstream & operator>> (T & item)
+    {
+        buffer >> item;
+        return *this;
+    }
+
+    operator void * () const
+    {
+        return (void *) buffer;
+    }
+
+private:
+    istrstream buffer;
+};
+
+
+inline istringstream & getline (istringstream & src_stream, string & str, char separator)
+{
+    getline (src_stream.buffer, str, separator);
+    return src_stream;
+}
+
+}   // End of namespace std
+
+#endif
+
+#endif
+

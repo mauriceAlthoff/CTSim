@@ -1,0 +1,29 @@
+; This file is maintained by HCW. Do not modify this file directly.
+
+[OPTIONS]
+COMPRESS=12 Hall Zeck
+REVISIONS=No
+LCID=0x409 0x0 0x0 ; English (United States)
+REPORT=Yes
+CONTENTS=Introduction
+TITLE=CTSim - Computed Tomography Simulator
+CNT=ctsim.cnt
+COPYRIGHT=Copyright (c) 1983-2001 Kevin Rosenberg, M.D.
+CITATION=Copyright (c) 1983-2001 Kevin Rosenberg, M.D.
+HLP=ctsim.hlp
+
+[FILES]
+ctsim.rtf
+
+[MAP]
+#include ..\src\ctsim-map.h
+
+[WINDOWS]
+main="",(653,102,360,600),27904,(r14876671),(r12632256),f3
+
+[CONFIG]
+CreateButton("Up", "\&Up", "JumpId(`ctsim.hlp', `Contents')")             ; Buttons
+BrowseButtons()
+
+[BAGGAGE]
+ctsim.cnt

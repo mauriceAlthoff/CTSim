@@ -1,0 +1,12 @@
+rm -f ctsim.rtf ctsim.cnt
+tex2rtf ctsim.tex ctsim.rtf -winhelp
+hcw /c /m /e ctsim.hpj
+mv CTSIM.HLP ctsim.hlp
+cp ctsim.hlp ctsim.cnt ../../msvc/ctsim/
+rm -f ctsim*.html ctsim.hhp ctsim.hhc ctsim.hhk
+tex2rtf ctsim.tex ctsim.html -html
+zip ctsim.zip *.html *.gif ctsim.hhp ctsim.hhc ctsim.hhk
+mv ctsim.zip ctsim.htb
+cp ctsim.htb ../../msvc/ctsim
+
+ 

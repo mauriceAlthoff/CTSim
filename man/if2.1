@@ -1,0 +1,60 @@
+.\" -*- NROFF -*-
+.\" 
+.TH "if2" "1" "" "Kevin Rosenberg" "Engineering"
+.SH "NAME"
+if2 \- binary operations between two image (IF) files.
+.SH "SYNOPSIS"
+.B if2 infile1 infile2  outfile [OPTIONS]
+.SH "DESCRIPTION "
+\fIif2\fP 
+performs binary functions on two input IF image files.
+.SH "OPTIONS"
+\fIif2\fP
+accepts the following options:
+.TP 16
+.B \-\-add
+Add infile1 and infile2.
+.TP 16
+.B \-\-sub
+Subtract infile2 from infile1.
+.TP 16 
+.B \-\-mul 
+Multiply images.
+.TP 16
+.B \-\-comp 
+Compare images.
+.TP 16
+.B \-\-column\-plot \fIn\fP
+Plot column.
+.TP 16
+.B \-\-row\-plot \fIn\fP
+Plot row.
+.TP 16
+.B \-\-verbose
+Verbose mode.
+.TP 16 
+.B \-\-version
+Print version.
+.TP 16 
+.B \-\-help
+Print terse help summary
+.SH "AUTHORS"
+Kevin Rosenberg, M.D. <kevin@ctsim.org>
+.SH "HISTORY"
+CTSim was begun in 1983 using MS\-DOS and an EGA display adapter. In
+1999 it was ported to GNU/Linux and later ported to Microsoft Windows.
+.SH "SEE ALSO"
+.BR ctsim (1)
+.BR ctsimtext (1)
+.BR if1 (1)
+.BR ifexport (1)
+.BR ifinfo (1)
+.BR linogram (1)
+.BR phm2helix (1)
+.BR phm2if (1)
+.BR phm2pj (1)
+.BR pj2if (1)
+.BR pjHinterp (1)
+.BR pjinfo (1)
+.BR pjrec (1)
+

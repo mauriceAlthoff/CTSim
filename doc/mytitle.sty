@@ -1,0 +1,31 @@
+% mytitle.sty
+
+\def\maketitle{\begin{titlepage}
+\let\footnotesize\small \let\footnoterule\relax \setcounter{page}{0}
+%\null
+%\vfil
+\vspace*{2cm}\begin{flushleft}
+{\huge \sf\@title\\\rule{\textwidth}{0.5mm}} \vskip 3em {\large \lineskip .75em
+{\sf \Large \@author}} \vskip
+3em {\large\sf Manual Version \manvernum\\\mandate\par}
+\end{flushleft}
+\par \@thanks \vfill
+{\sf\small\begin{flushright}%
+kevin@rosenberg.net\\
+\vspace{0.3cm}
+Heart Hospital of New Mexico\\
+504 Elm Street N.E.\\
+Albuquerque, New Mexico 87108\\
+\end{flushright}}
+\null
+\end{titlepage}
+\setcounter{footnote}{0} \let\thanks\relax
+\gdef\@thanks{}\gdef\@author{}\gdef\@title{}\let\maketitle\relax}
+\def\abstractname{Abstract} % <----------
+\def\abstract{\titlepage
+\null\vfil
+\begin{center}
+{\bf \abstractname} % <----------
+% {\bf Abstract}
+\end{center}}
+\def\endabstract{\par\vfil\null\endtitlepage}

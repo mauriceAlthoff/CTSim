@@ -1,0 +1,708 @@
+Nov  7, 2010  Version 5.2.0
+	* tools/ifexport.cpp: Add Text output option (thanks to
+	Christian Thibaudeau)
+
+Aug 22, 2009  Version 5.1.3
+	* src/ctsim.cpp
+	- Improve numbering of unnamed documents. Reduce cut-and-paste code.
+	* configure.ac
+	- Use new AC_INIT form to include package information, email, url
+
+Aug 21, 2009  Version 5.1.2
+	* Conditionalize debugging output
+
+Aug 20, 2009  Version 5.1.1
+	* Use new wxFont constructor. Adjust font sizes.
+
+Aug 12, 2009  Version 5.1.0
+	* All known wxwidgets 2.8 compatibility issues have been fixed
+
+Aug 6, 2009  Version 5.0.6
+	* Use wxWidgets command-line processing rather than existing
+	native processing.
+	* ezset.cpp: Initialize scale settings in constructor
+	* Improve titles of frames
+	* configure.ac: Use wx-config to determine name of wxGL library
+	* src/graph3dview.cpp: wx2.8 compatibility changes to eliminate
+	segv crash when creating 3D objects
+
+Aug 3, 2009  Version 5.0.5
+	* Fix plots when maximum plot value is the same as minimum
+
+Aug 3, 2009  Version 5.0.5
+	* More wx2.8 compatibility fixes.
+	* Fix initial size of Log TextCtrl at start-up.
+	* Fix display of values in Log window by cleaning up string
+	transformtions.
+
+Aug 2, 2009  Version 5.0.4
+	* More wx2.8 compatibility fixes. Ensure that a resize of a window
+	causes a full repaint for phantom, plot, and graph3d canvases.
+
+Aug 1, 2009  Version 5.0.1
+	* missing: Update to latest automake version
+	* configure: make compatible with wxMac
+	* update few source files for non-unicode wxWidgets 2.8 compatibility
+
+Aug 1, 2009  Version 5.0.0
+	* Major revision of wxWidgets code to port from wx2.4 to wx2.8
+	Currently, code compiles without warnings, but there are
+	GUI visual problems at the momemt running with wx2.8
+
+Sep 17, 2007  Version 4.5.5
+	* better cleaning in makefiles
+	* use "const char" variables for string literals
+
+Sep 10, 2007  Version 4.5.4
+	* configure.ac: Fix builds with multiple versions of wx-config
+	-- thanks to Steve White
+
+Apr 1, 2007  Version 4.5.3
+	* include/timer.h: Fix building on GCC 4.3
+	-- thanks to Martin Michlmayr
+
+Oct 19, 2006  Version 4.5.2
+	* src/lipctsim/imagefile.cpp: Change delete to fftw_free
+	-- thanks to Sven Huth
+
+Oct 18, 2006  Version 4.5.1
+	* configure: rebuild from configure.ac
+
+Oct 15, 2006  Version 4.5.0
+	* libctsim/backprojectors.cpp: Fix for iteration bug in backprojection
+	and simply computing rotScale -- thanks to Dan Martin.
+
+Mar 16, 2006  Version 4.4.4
+	* Changes for g++ 4.1 support
+
+Aug 22, 2005  Version 4.4.2
+ 	* New URL for downloading CTSim
+
+Aug 22, 2005  Version 4.4.1
+        * work-around for compilation problems on Fedora 4 and wxWin 2.4.2
+
+Aug 22, 2005  Version 4.4.0
+        * Changes in configure.ac for X.org compatibility with Debian Etch
+	and FC4. May not be backward compatibility with XFree86.
+
+Aug 10, 2004  Version 4.3.2, Version 4.3.3
+	* Minor changes in man pages to fix groff warnings
+
+Nov 1, 2003  Version 4.3.1
+	* Add support for SuSE AMD64
+
+Oct 5, 2003  Version 4.3.0
+	* Ported to incompatible FFTW3 library. CTSim will no longer compile or
+	run with FFTW2.
+	* Save FFTW3 in $HOME/.fftw3-wisdom on platforms where getenv function
+	is available
+
+Oct 3, 2003  Version 4.2.7
+	* Add support for building on RedHat AMD64
+
+Sep 30, 2003  Version 4.2.7
+	* Fix minor issue with floating point difference backprojection, add
+	optimization
+
+	* Fix building with newest versions of automake 1.7
+
+	* Add support for 8-byte longs [for example, Athlon64] in
+	integer difference backprojection allowing for 64-bit integer
+	math.
+
+Mar 22, 2003  Version 4.2.3
+
+	* Added Fourier reconstruction method
+
+	* Support gcc 3.2, wxWindows 2.4, and MacOS X
+
+	* Fix polar interpolation
+
+Jun 26, 2002  Version 3.5.6
+
+	* Fix minor color PNG image importing bug
+
+	* Bug fix for building on Debian alpha platform
+
+	* Fix g++ compilation warnings
+
+Jun 13, 2002  Version 3.5.5
+
+	* Fix printing of version number
+
+	* Minor bug fixes
+
+	* Updated Win32 compatibility
+
+Jun 8, 2002  Version 3.5.4
+
+	* Print version number in log window with About command
+
+	* Fix problem with captions not showing on some windows. Reworked
+	creation of new windows.
+
+	* Disabled status bar on 3d views
+
+	* Fix bug in configure.ac that prevented using compiler
+	optimizations.
+
+	* Updated About splash screen
+
+May 29, 2002  Version 3.5.3
+	* Added support for g++ 3.04 compiler
+
+May 8, 2002  Version 3.5.2
+	* configure: improved CTN (DICOM) installation search
+	* src/ctsim.cpp: Fixed initial image size with import command
+
+May 5, 2002  Version 3.5.1
+
+	New Features:
+
+	* ctsim: Added tips to be displayed at startup and via the help menu.
+	* ctsim: Added center-detector concept. Allow for detector array
+	to be any arbitrary distance from center of scanner. As a result,
+	projection files are not incompatible with previous version of
+	CTSim.
+	* ctsim: Added threaded tasks and background manager for
+	background processing as well as taking advantage of multiple-CPU's
+	on SMP systems.  (Microsoft Windows only)
+	* ctsim: Added plot t-theta sampling to projection file menu.
+	* ctsim: Added Reconstruction with Rebinning for faster
+	divergent beam reconstructions.
+	* ctsim: Added import and export of DICOM image files.
+	* ctsim: Added PPM, PGM, and PNG file import to imagefile.
+	* ctsim: Added FFT/IFFT of columns of image files.
+	* ctsim: Added clipboard cut/copy/paste for image files.
+	* ctsim: Added region of interest to reconstructions.
+	* ctsim: Added Convert Rectangular Image to Projection files
+	* ctsim: Added "Verbose Logging", "Startup Tips", and
+	"Background processes" options 	to Preferences dialog.
+	* ctsim: Added plotting of projection file histograms.
+	* plotfile: Added scattergram plot functions
+	* ctsim: Added accelerator key for File-Properties
+	* ctsim: Improved wireframe 3-d display to remove hidden
+	surfaces.
+	* backprojectors.cpp: Added setting of axis extent and increment
+	to reconstructions.
+	* projections.cpp: Can read and reconstruct SIEMENS AR.STAR DICOM
+	projection data files.
+
+	Bug Fixes:
+
+	* views.cpp: reduced calls to progress bar update, significant speedup
+	* views.cpp,ctsim.cpp: Fixed bug with window frames sometimes
+	not being displayed on Unix platforms.
+	* views.cpp: Added out-of-memory checks to display for huge
+	image and projection files.
+	* filter.cpp: Fixed Hanning parameter to be 0.5 rather than 0.54
+	* imagefile.cpp: Fixed scaling factor in fftRows
+	* imagefile.cpp: Fixed bug when performing magnitude() on real-valued
+	image.
+	* sgp.cpp: Fixed bug in drawCircle.
+	* distribution: fixed problem with documentation files not
+	being included with the distribution (Reported by Ian Kay).
+	* sgp.cpp/ezplot.cpp: Improved plotting with markers.
+	* fixed ctsimtext shell when giving no parameters to function-name
+	* phm2if, phm2pj: Updated help messages for renamed phantoms
+
+3.0.3 - Released 2/20/01
+
+	* ctsim: Fixed core dump on Linux with OpenGL
+
+	* ctsim: Fixed context-sensitive help on Linux
+
+	* ctsim: Fixed About box on Linux
+
+3.0.2 - Released 2/20/01
+
+	* scanner.cpp: Fixed bug when number of detectors was even.
+
+	* ctsim: Improved error handling when trying to convert
+	divergent projections into polar form.
+
+3.0.1 - Released 2/19/01
+
+	* ctsim: Fixed dialog box for reconstruction so that
+	rotation angle setting will stay fixed in-between use
+	of the dialog box.
+
+	* syserror: Fixed display bug for trace messages
+
+	* ctsim: MSVC optimization bug work-around, compiler
+	options changed.
+
+3.0.0 - Released 2/19/01
+
+	* ctsim: Massive update/fix to online help and print manual.
+
+	* ctsim: Added context-sensitive help to dialog boxes
+
+	* ctsim: Reformated all dialog boxes, much nicer now.
+
+	* ctsim: Improved accelerator key handling
+
+	* global: Added Hanning filter.
+
+	* global: Improved default parameters to that all defaults give
+	sensible output.
+
+3.0.0beta1 - Released 2/11/01
+
+	* ctsim: Added most-recently-used files to File menu with
+	registry storage between executions.
+
+	* ctsim: Hides arcane features unless enabled by Preferences dialog
+
+	* ctsim: Added MDI interface for Windows version and made it default for Windows.
+
+	* ctsim: Added 3-D wireframe view of images (uses OpenGL)
+
+	* ctsim: Added graphical About box
+
+	* ctsim: Escape key now removes cursor lines from image file view
+
+	* ctsim: Added Revert to ImageFile menu
+
+	* ctsim: Added accelerator (hotkeys) to frames
+
+	* ctsim: Online help added!
+
+	* backprojector: Added cubic interpolation
+
+	* ctsim: Added icons to Frames on X-Window and MS Windows versions
+
+	* ctsim: Fixed tick-label placement for plots on projection and
+	reconstruction dialogs.
+
+	* timer.h: Add use of _ftime when compiling on MSVC
+
+	* global: Projection files are not compatible with previous version
+	due to new scanner definitions.
+
+	* global: deleted concept of field-of-view and added
+	  view ratio and scan ratio concepts.
+
+	* ctsim: Fixed crash on shutdown bug
+
+	* pjinfo: Fixed bug when doing --dump and not specifing --endview
+
+	* phm2pj: Fixed MPI bug with broadcasting of variables
+
+	* ctsimtext-lam: Changes for first version to compile under lam
+
+
+3.0.0alpha5 - Released 1/12/00
+
+	* ctsim: Added EZPlotDialog, used by debugging plots in
+	procsignal.cpp
+
+	* ctsimtext: Fixed bugs for MSVC and with empty input lines. Fixed
+	bug in parsing command-line parameters.
+
+	* views.cpp: Fixed bug in copying of labels from images to
+	plotfiles
+
+	* syserror.cpp: fixed reporting for fatal errors
+
+	* projections.cpp: fixed MSVC failure with std:: namespace
+
+	* procsignal.cpp: fixed bug in equiangular reconstructions
+	for frequency/inverse-fourier filtering
+
+3.0.0alpha4 - Released 1/09/01
+
+	* ctsim: Added reset to full-intensity scale menu item
+
+	* ctsim: Add conversion of projections to polar plot [Thanks to
+	Ian Kay for reference and math hints in polar bilinear scaling]
+
+	* ctsim: improve bilinear scaling of image size [Thanks to Ian Kay
+	for math tips]
+
+	* ctsim: imagefile labels are now copied to plotfiles
+
+	* ctsim: Added more analyze menuitems
+
+	* ctsimtext: First version. All command-line tools are now accessed
+	through this master shell. Has both command-line and interactive
+	interface
+
+	* ctsim: Fixed initialization of min/max bug for PlotFiles
+
+	* ezplot: Cleaned up y-tick label placement
+
+	* sgp: Added better support for projection/reconstruction animation
+
+3.0.0alpha3 - Released 1/02/01
+
+	* ctsim: Added plotting of histograms
+
+	* imagefile.cpp: fixed bug in generation of 16-bit PNG images
+
+	* ezplot.cpp: adjusted xtick label displays for better placement
+
+3.0alpha2 - Released 1/02/01
+
+ 	* ctsim: All functions of command-line tools are now in graphical ctsim
+
+	* ctsim: added generation of filter images
+
+	* ctsim: Added 2-image math functions (mul, add, div, sub)
+
+	* ctsim: Added export of imagefiles to graphic file formats
+
+	* ctsim: Added support for scaling imagefiles in new sizes
+
+	* ctsim: Added ability to save standard phantom definitions as
+	text files suitable for reading.
+
+	* ctsim: Add labels for image transformations and display of labels
+	when performing properties of images.
+
+	* processsignal.cpp: Fixed "off by one" bug in
+	shuffleNaturalToFourierOrder when n is even. Moved functions to
+	fourier.cpp
+
+	* imagefile.cpp: Added FFTW library to imagefile processing. Converted
+	image math functions to complex-valued math.
+
+	* phantom.cpp: Added ability to save phantom files as ASCII text.
+
+3.0alpha1 - Released 12/29/00
+
+	* Added PlotFile class to system, used by if2 and ctsim for row
+	and column plots and comparison plots
+
+	* ctsim: Added image comparison statistics and image subtraction
+
+	* ctsim: Added plotting of rows & columns with y-axis scaling
+
+	* ctsim: Added row and column plot comparisons between two image
+	files.
+
+	* ctsim: Added "Process" menu to image file display with math
+	functions. Added 2-dimensional inverse Fourier to math
+	functions. Added support for complex (real/imaginary) images.
+
+	* mathfuncs.cpp: Reworked statistics algorithm to share between
+	imagefile and plotfile classes.
+
+	* imagefile.cpp: Fixed scaling bug when rasterizing Phantom with
+	nsamples > 2.  Added generic mage math functions, moved from
+	if1.cpp and if2.cpp to imagefile.cpp. Added support complex
+	images.
+
+	* array2dfile.cpp: Added code to support complex (real/imaginary)
+	images.
+
+	* if1: Updated to handle error conditions, such as sqrt of a
+	negative number. Converted to use new ImageFile math functions.
+
+	* if2: Updated to output plot files and use new ImageFile class
+	math functions
+
+	* if1: Updated to use new ImageFile class math functions
+
+	* ezplot: Reworked to better store colors/linestyles/symbols with
+	individual curves. Improved display of labels and ticks. Updated
+	to use POL class member variable. Updated to more C++ conventions.
+
+	* pol: converted to C++ class. Extracted HashTable to separate
+	class.
+
+	* sgp: Added linestyle settings
+
+2.5.0 - 12/18/00
+   First Microsoft Windows GUI version
+   Modifications for Microsoft Visual C++ compilation.
+   Improved pjinfo to output binary headers and view data, useful
+	when manually compiling phantoms that vary during projection
+	process. Thanks to Ian Kay for idea and code submission.
+   Improved sorting to find median in ImageFile::statistics
+   Fixed core-dump bug in Array2dFile::labelsCopy() function (Ian Kay)
+   Changed reconstruction dialog to fix onto smaller screens
+   Fixed display of plotting in Projection views
+   Improved animation displays for Projections and Reconstructions
+   Changed code to explicitly use std:: namespace rather than
+	"namespace using std" statements
+   Fixed reconstruction scaling bug introduced in 2.0.6
+   Renamed if2img to ifexport, if-1 to if1, if-2 to if2
+
+2.0.6 - 12/03/00
+   Fixed minor compilation problem with procsignal.h
+   Updated README file
+   Fixed bug when simulating projections and Trace == CONSOLE
+   Fixed scaling bug when performing redundant rotations around object
+
+2.0.5 - 12/01/00
+   Improved compilation on RedHat 7
+   Changed some of ANSI C header files to C++ header files
+   Removed README.RedHat7
+
+2.0.4 - 11/25/00
+   Added documentation for --geometry setting
+   Added README.RedHat7 document
+
+2.0.3 - 11/20/00
+   Fixed bug in generation of binary PGM files
+   Fixed MPI compilation bug in phm2pj.cpp
+   Inverted y-axis output for pj2if (bug alert from Ian Kay)
+
+2.0.2 - 11/8/00
+   Additions to man pages (Ian Kay)
+   Fix problem with reading of ASCII phantom files (Ian Kay)
+
+2.0.1 - 10/1/00
+   Fixed syntax error in fftw configuration
+   Slight modifications to support gcc v2.9.6
+
+2.0.0 - 9/7/00
+   Version 2.0.0 released!
+   ctsim: Added Window menu to Main frame
+   ctsim: Disabled not support reconstruction method
+   Fixed obscure bug in sys_error
+   Fixed compilation in mingw environment not present
+   Fixed compilation in non-graphical environments
+
+2.0.0-b12 - 9/4/00
+   ctsim: Added animation of reconstruction
+   ctsim: Added saving of dialog parameters for Projection & Reconstruction
+   ctsim: Added progress dialog for rasterization of phantom
+   ctsim: used setpriority to set lower priority
+   ctsim: fixed pReconstruct not being deleted causing scaling problem
+   ctsim: fixed projection animation dialog buttons
+
+2.0.0-b11 - 9/1/00
+   ctsim: Added projection graph to animation of projection collection
+   ctsim: Added single stepping to projection collection animation
+   ctsim: improved File/Properties display for projection files
+   ctsim: Added progress dialog for reconstructions
+   ctsim: Added file labels for projection and reconstruction images
+   ctsim: Made File/Properties bring up modal dialogs
+   Added reconstruction for Equilinear and Equiangular geometries
+   Changed theta to be -PI/2 to make compliant with Kak-Slaney formulas
+   Separated reconstruction into Reconstructor class
+   Fixed center of detector adjustment for even number of detectors
+   Added --enable-static to generate statically linked programs
+
+2.0.0-b10 - 8/25/00
+   ctsim: Added animation of projection collection processs
+   ctsim: Added Auto Scaling for image windows
+   ctsim: Change menus from "windowing" to "display scaling"
+   Added FieldOfView and FocalLength ratio parameters to projection collection
+   Added FocalLength & FieldOfView fields to projection data files
+   Added Projection collection for Equilinear and Equiangular geometries
+   Changed name of Rowland Phantom to correct name of Shepp-Logan
+   Fixed bug in backprojection selection
+
+2.0.0-b9 - 8/22/00
+   Added RCS Id strings to executable files
+   Added RPM Spec file for RPM package creation
+   Added loading of ASCII phanthom definitions from files
+   Fixed compilation for non-SGP architectures
+   Decomposed SignalFilter class into ProcessSignal and SignalFilter classes
+   Added Filter-Generation option to reconstruction to allow direct or
+	inverse_fourier construction of filters
+   Added median to statistics and to auto-windowing
+
+2.0.0-b8 - 8/1/00
+   Added line color support to SGP
+   Fixed lineAbs bug
+
+2.0.0-b7 - 7/25/00
+   Finished support for dmallocxx library
+   Fixed bug in SignalFilter::convertFilterMethodNameToID()
+   Rewrote SGP & EZPlot to use C++ object-oriented. SGP can now write to
+	G2 windows and well as WXWindows.
+   ctsim program: "Create Phantom" now shows phantom object
+   Fixed row-plot bug in if-2
+   Reworked EZPlot's multiple plot operation
+
+2.0.0-b6 - 7/22/00
+   ctsim program: improved initial size and scroll area for image
+	and projection files
+   ctsim program: added rasterization parameters, projections parameters,
+	and reconstruction parameters dialogs
+   Moved char[] static definition from header files to c++ files
+   Completely reorganized option processing in classes to improve
+	expandability and to assist ctsim graphical user interface.
+
+2.0.0-b5 - 7/17/00
+   ctsim program: Added dialog to set minimum/maximum display levels
+   Started ctsim.tex document file
+
+2.0.0-b4 - 7/13/00
+   Fixed compiler warnings at -Wall level
+   Began work on CTSim program to be graphical front-end of all functions
+   Moved current src/*.cpp to tools/*.cpp
+   Made CTSim graphical front-end's home to be src/
+
+2.0.0-b3 - 7/10/00
+   Added highly optimized backprojection method idiff3
+   Moved comparative stats to if-2 program from ifinfo
+   Fixed image display in if2img using G2 library
+   Added column-plot and row-plot options to if-2
+   Added autoselection of analytic/calculated spatial responses to SignalFilter
+   Added frequency-based preinterpolation to SignalFilter and idiff3
+	backprojection method. Currently, this technique is still under
+	development and debugging
+   Moved graphic file writing to ImageFile class from if2img program
+
+2.0.0-b2 - 7/07/00
+   Cleaned up SignalFilter class
+   Added zeropad option to pjrec
+   Added zeropad options to html and cgi files
+   Added fourier_table and rfttw filter methods
+   Added FFTW routines to use real/half-complex transformations
+
+2.0.0-b1 - 7/05/00
+   Updated trace level processing
+   Added trace level to SignalFilter
+   Fixed magnitude vs. real output bug in FFT/Fourier filter
+
+1.9.9 - 7/04/00
+   Fixed const issue with ImageFileArray
+   Fixed Array2dFile::labelsCopy()
+   Added copy constructor and assignment for Array2dFileLabel class
+   Added Timer to if-2.cpp and ifinfo.cpp
+   Added beginning of frequency-based (DFT & FFT) filter to SignalFilter
+   Added option processing for filter-method for pjrec to choose
+	between convolution, dft, & fft filtering
+   Fixed format string for EZPlot so axis labels now print
+   Added support for FFTW library
+
+1.9.8 - 6/27/2000
+   Rewrote Array2dFile class to be non-templated
+   Rewrote Array2dFile class to make reads and writes atomic. No disk files are kept open.
+   Rewrote Array2dFileLabel class to make members private, added access routines
+   Removed timedate.cpp in favor of standard C library time/date functions
+   Renamed ctrec to pjrec, sample-ctrec.sh to sample-ctsim
+   Added signature tag and creation date/time to projection files
+
+1.9.7 - 6/25/2000
+   Standardized string option processing by classes. All classes use character strings
+	to select options rather than numeric constants. Added fail() and failMessage()
+	methods to verify that objects are created correctly by character strings.
+   Hid C++ assignment and copy constructors in classes that should not have assignment/copy
+   Rewrote ImageFile class
+   Started support for dmallocxx library, not finished
+   Added G.T. Herman image comparision statistics to ifinfo (see imagefile.cpp)
+   Updated ifinfo to show comparative statistics
+   Added printLabels() to Array2dFile class
+   Added printStatistics() to ImageFile class
+
+1.9.6 - 6/22/2000
+   Moved conversion filter name/id to Filter class
+   Moved conversion backprojection name/id to Backproj class
+   Added MPI broadcasting of strings
+
+1.9.5 - 6/21/2000
+   Merged proj_reconstr into class Projections
+   Used auto_ptr in Projections::reconstruct to make sure destructor is always called
+   Code cleanup in projections.cpp
+   Moved conversion of phantom names/id to Phantom class
+
+1.9.4 - 6/20/2000
+   Converted projection files to C++ library with frnetorderstream
+   Converted image files to C++ library with frnetorderstream
+   Converted filter and convolution to object-oriented code
+   Changed default image file to float from double -- Changable in imagefile.h
+   Optimized image file writing on little-endian architectures
+   Updated README and INSTALL
+
+1.9.3 - 6/19/2000
+   Reorganized source files
+   MPI bug fixed to phm2pj.cpp
+
+1.9.2 - 6/18/2000
+   Reorganized include files
+   Fixed const pointers in strfuncs
+
+1.9.1 - 6/16/2000
+   Renamed directories, moved source files, combined source files
+   to change from 6 libraries to 3 libraries (libctsim, libctsupport,
+   and libctgraphics)
+
+1.9.0 - 6/15/2000
+   Skip versions to make version 2.0 the first fully C++ version
+   Renamed Raysums to Projections throughout files
+   Renamed Detector to Scanner
+   Converted Scanner and Projecions to full object-oriented
+
+0.6.1 - 6/12/2000
+   Converted Phantom and PhantomElements to Object-Oriented
+   Converted Detector to Object-Oriented
+
+0.6.0-b3 - 6/10/2000
+   Improved Integer backprojection method
+	Fixed nearest neighbor to be truly nearest neighbor
+	Made linear interpolation more integer arithmetic -> speed improvement
+   Finished converting all C files to C++
+   Converted all use of malloc/free to C++ new/delete
+   Began object-oriented conversion of Phantom and Projection structures
+
+0.6.0-b2 - 6/8/2000
+   Converted MPI data structures to C++ object
+   Made ImageFile directly inherit from Array2dFile
+
+0.6.0-b1 - 6/6/2000
+   First C++ conversions
+   Portable IF (image file) format implemented with objects (SDF removed)
+	- Now all data files are cross-platform compatible
+   Converted from MPI to MPI++
+   Converted backprojection to object-oriented
+   Removed MTX from libkmath as no longer need -- replaced with C++ matrices
+
+0.5.4 - 6/4/2000
+   Simpilifed endian handling
+
+0.5.4-b3 - 6/1/2000
+   Added support for 64-bit (IA64) CPU
+   Removed broken B-spline interpolation
+   Added support for cygwin platform under Windows 2000
+   Added support for 16-bit PNG graphics
+
+0.5.4-b2 - 5/16/2000
+   Added compile-time configuration of endian order
+
+0.5.4-b1 - 5/14/2000
+   Modified the raysum file format to be platform independent
+
+0.5.3 - 5/11/2000
+   Added Microsoft VC compatibility
+   Cleaned up compilation warnings in libgraph
+
+0.5.2-b5 - 5/7/2000
+   Continued conversion to ANSI C
+   Removed old CRT routines
+
+0.5.2-b4 - 5/4/2000
+   Renamed pictures to phantoms, objects to phantom elements
+   Continued code cleanup
+
+0.5.2-b3 - 4/30/200
+    More code cleanup with reorganizing libraries
+    Added --log and --exp to sdf-1
+    Allowed negative numbers for window levels in CGI interface
+
+0.5.2-b2 - 4/30/200
+    Continued code cleanup
+
+0.5.2-b1 - 4/29/2000
+    Fixed a few MPI bugs
+    Better documented, coded raysum in-memory on on-disk options
+
+0.5.1 - 4/28/2000
+    Cleaned out library that wasn't being used by CTSim
+    Modified ctsim.cgi to read in configuration file ctsim.conf
+
+0.5.0 - 4/27/2000
+    First open source distribution for GNU/Linux
+
+6/1999
+  Converted to GNU/Linux
+  added MPI support via LAM library
+
+1983-84
+  Developed under MS-DOS and IBM EGA graphics

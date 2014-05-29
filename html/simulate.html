@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+<HEAD>
+<meta name="copyright" content="Copyright (c) 1983-2001, Kevin M. Rosenberg, M.D.">
+<meta name="description" content="CTsim - The Open-Source Computed Tomography Simulator">
+<meta name="keywords" content="ctsim, computed tomography, ct, open source, scientific software, simulation, c++, online simulation, medical imaging">
+<LINK rel="stylesheet" href="http://www.ctsim.org/main.css" type="text/css">
+<TITLE>CTSim's Online Computed Tomography Simulator</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<H1>
+<a href="http://www.ctsim.org">CTSim's</a>
+Online Computed Tomography Simulator</H1>
+Reasonable defaults have been filled into this form. For detailed explanations of the
+parameters on this form, please visit CTSim's online <a href="http://www.ctsim.org/manual/ctsim_contents.html">manual</a>.<br>
+
+<FORM action="/ctsim.cgi" method="POST">
+<table border=1 cellpadding="5" bgcolor="#FFFFFF">
+<tr><td valign="top">
+<h3>Select Image and Size</h3>
+<font size="-1">
+Phantom Name:<br>
+<INPUT type="radio" name="Phantom_Name" value="herman" checked>G.T. Herman<br>
+<INPUT type="radio" name="Phantom_Name" value="shepp-logan">Shepp-Logan<br>
+<INPUT type="radio" name="Phantom_Name" value="unit-pulse">Unit Pulse<br>
+<p>
+Image Size:<br>
+Width: <input type="text" name="Phantom_Nx" size="4" value="128"><br>
+Height: <input type="text" name="Phantom_Ny" size="4" value="128"><br>
+<p>
+View Ratio: <input type="text" name="Phantom_ViewRatio" size="4" value="1.01">
+<p>
+Number of Samples<br>per pixel: <input type="text" name="Phantom_NSample" size="2" value="2"><br>
+<p>
+Display Window:<br>
+Minimum: <input type="text" name="Disp_Min" size=5 value="auto"><br>
+Maximum: <input type="text" name="Disp_Max" size=5 value="auto"><br>
+<p> 
+<!--MPI Supercomputing:<br>
+<INPUT type="radio" name="MPI" value="yes">Yes (Multiple CPUs)<br>
+<INPUT type="radio" name="MPI" value="no" checked>No (Single CPU)<br>
+</td>
+-->
+</font>
+<td valign="top">
+<h3>Simulate X-Ray acquistion</h3>
+<font size=-1>
+Geometry:<br>
+<INPUT type="radio" name="PJ_Geometry" value="parallel" checked>Parallel<br>
+<INPUT type="radio" name="PJ_Geometry" value="equiangular">Equiangular<br>
+<INPUT type="radio" name="PJ_Geometry" value="equilinear">Equilinear<br>
+<p>
+Number of Detectors: <input type="text" name="PJ_NDet" size="4" value="200"><p>
+Number of Rotations: <input type="text" name="PJ_NRot" size="4" value="200"><p>
+Focal Length: <input type="text" name="PJ_FocalLength" size="4" value="2.0"><p>
+Scan Ratio: <input type="text" name="PJ_ScanRatio" size="4" value="1.0"><p>
+Number of Rays<br>(samples) per detector: <input type="text" name="PJ_NRay" size="2" value="2"><p>
+Rotation Angle<br>as a fraction of a cricle: <input type="text" name="PJ_RotAngle" size="3" value="1.0"><br>
+</td></font>
+<td valign="top">
+<H3>Image Reconstruction</H3>
+<font size=-1>
+Filter Method:<br>
+<input type="radio" name="IR_FilterMethod" value="convolution" checked>Convolution<br>
+<input type="radio" name="IR_FilterMethod" value="fourier">Fourier<br>
+<input type="radio" name="IR_FilterMethod" value="fourier_table">Fourier Table<br>
+<input type="radio" name="IR_FilterMethod" value="rfftw">FFT<br>
+<p>
+Zeropad (applies to<br> Fourier & FFT):
+<input type="text" name="IR_Zeropad" size="1" value="1"><br>
+<p>
+Interpolation:<br>
+<input type="radio" name="IR_Interp" value="nearest">Nearest Neighbor<br>
+<input type="radio" name="IR_Interp" value="linear" checked>Linear<br>
+<input type="radio" name="IR_Interp" value="cubic">Cubic<br>
+<p>
+Filter:<br>
+<input type="radio" name="IR_Filter" value="abs_bandlimit" checked>Bandlimit<br>
+<input type="radio" name="IR_Filter" value="abs_cos">Cosine<br>
+<input type="radio" name="IR_Filter" value="abs_hamming">Hamming<br>
+<input type="radio" name="IR_Filter" value="abs_hanning">Hanning<br>
+<input type="radio" name="IR_Filter" value="abs_sinc">Sinc<br>
+<input type="radio" name="IR_Filter" value="shepp">Shepp-Logan
+<p>
+Hamming alpha factor (0.0-1.0): <input type="text" name="IR_Filter_Param" size="3" value="1.0"><p>
+Backprojection Method:<br>
+<input type="radio" name="IR_Backproj" value="trig">Trig<br>
+<input type="radio" name="IR_Backproj" value="table">Trig Table<br>
+<input type="radio" name="IR_Backproj" value="diff">Difference<br>
+<input type="radio" name="IR_Backproj" value="idiff" checked>Difference (integer math)<br>
+</td></tr>
+</font>
+</table>
+<p>
+<input type="submit" value="Simulate"><input type="reset" value="Set Fields to Default">
+<br>
+After clicking the <b>Simulate</b> button, it will take a few seconds to a few minutes for your results to appear depending
+upon the simulation parameters that you have chosen.
+</form>
+</BODY>
+</HTML>
+
+
+
+
+
+
+
+
+
+
+
+
+

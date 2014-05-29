@@ -1,0 +1,32 @@
+# Makefile for libk
+
+!include <ntwin32.mak>
+
+CC=cl
+LD=link
+CFLAGS=-O -nologo -I..\include -DENDIAN_HIGH=0 -DENDIAN_LOW=1
+LDFLAGS=
+O=.obj
+
+# variables
+OBJ1 = kbasename$(O) allocnum$(O) fexist$(O) iclip$(O) sysalloc$(O) syserror$(O) sysfopen$(O) sysfree$(O) s_head$(O) s_lower$(O) s_rmtail$(O) s_save$(O) timedate$(O) netorder$(O)
+
+all:  libk.lib
+
+.obj: .c
+	$(CC) -c $(cvarsdll) $(CFLAGS) $*.c
+
+
+libk.lib: $(OBJ1)
+        echo something to del > libk.lib
+        del libk.lib
+        lib /out:libk.lib $(OBJ1)
+
+
+clean:
+        echo dummy > a.obj
+        echo dummy > a.exe
+        echo dummy > a.lib
+	del *.obj
+	del *.exe
+	del *.lib

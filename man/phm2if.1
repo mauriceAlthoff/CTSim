@@ -1,0 +1,61 @@
+.\"  -*- nroff -*-
+.\"
+.\" phm2if.1
+.\"
+.\" Author: Kevin Rosenberg <kevin@ctsim.org>
+.\"
+.\" $Id: phm2if.1,v 1.5 2002/05/03 10:28:17 kevin Exp $
+.\"
+.Dd April 19, 2000
+.Dt PHM2IF 1
+.Os
+.Sh NAME
+.Nm phm2if
+.Nd Generate Phantom (generate phantom for computed tomography simulator)
+.Sh SYNOPSIS
+.Nm phm2if outfile nx ny [--phantom phantom-name] [--picfile filename] [OPTIONS]
+.Sh DESCRIPTION 
+.Nm
+generates phantom images for comparisons to reconstructions for CTsim.
+.Pp
+.Nm
+is configured to use a variety of options for phantom generation.
+.Pp
+The options are as follows:
+.Bl -tag -width Ds
+.It Fl Fl phantom Ar predefined-phantom-name
+Selects a predefined phantom name
+.It Fl Fl picfile Ar picfile
+Reads a picture file that defines a phantom
+.It Fl Fl filter Ar filter-name
+Generate a phantom image from a filter
+.It Fl Fl filter-param Ar x
+Set alpha level for Hamming filter
+.It Fl Fl filter-bw Ar bw
+Filter bandwidth (default is 1)
+.It Fl Fl filter-domain Ar domain
+Set domain to "spatial" or "freq"
+.It Fl Fl nsample Ar n
+Use n samples per X & Y direction for each pixel
+.It Fl Fl trace Ar level
+Set trace level (default is none)
+.It Fl Fl desc Ar description
+Save description in image file
+.It Fl Fl verbose
+Turn on verbose mode
+.It Fl Fl debug
+Turn on debug mode
+.It Fl Fl version
+Print version
+.It Fl Fl help
+Print terse help summary
+.El
+.Sh AUTHORS
+Kevin Rosenberg, M.D. <kevin@ctsim.org>
+.Sh HISTORY
+CTSim was begun in 1983 using MS-DOS and an EGA display adapter. In
+1999 it was ported to GNU/Linux and later ported to Microsoft Windows.
+.Sh SEE ALSO
+ctsim (1), ctsimtext (1), if1 (1), if2 (1), ifinfo (1), linogram (1),
+phm2helix (1), phm2pj (1), pj2if (1), pjHinterp (1), pjinfo (1),
+pjrec (1)

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+DIR=
+
+TIME=/usr/bin/time
+
+${DIR}ctsimtext phm2if /dev/null 768 768 --phantom herman --nsample 3
+${DIR}ctsimtext phm2pj ~/t.pj 900 900 --phantom herman --geometry parallel --nray 2
+${DIR}ctsimtext pjrec ~/t.pj ~/t.if 768 768
+rm ~/t.pj
+rm ~/t.if

@@ -1,0 +1,31 @@
+\chapter{The Web Interface}\label{webinterface}\index{Web interface}%
+\setheader{{\it CHAPTER \thechapter}}{}{}{\ctsimheadtitle}{}{{\it CHAPTER \thechapter}}%
+\ctsimfooter%
+
+\section{Overview}
+\ctsim\ can also be executed via a web browser. The Perl program
+\texttt{ctsim.cgi} takes projections of a standard phantom object,
+performs reconstruction, and then compares the rasterized phantom
+object with the reconstruction. The comparison is performed both
+visually by an image subtraction as well as by statistical
+analysis.
+
+The \texttt{ctsim.cgi} program is invoked from the HTML file
+\texttt{simulate.html}.
+
+\section{Requirements}
+   \begin{itemize}\itemsep=0pt
+      \item \urlref{Apache}{http://www.apache.org} or other CGI-compatible web server
+
+      \item Perl (version 4.0 or higher)
+
+      \item A client web browser than can display PNG files. Most
+      current web browsers support PNG.
+
+      \item A knowledgable system administrator.
+\end{itemize}
+
+\section{Installation}
+Installation is rather automatic on Linux and UNIX systems. The
+\texttt{configure} script needs to be given options that specify
+the directory for web pages and for CGI programs.

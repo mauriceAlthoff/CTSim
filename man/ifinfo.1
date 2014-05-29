@@ -1,0 +1,44 @@
+.\"  -*- nroff -*-
+.\"
+.\" Author: Kevin Rosenberg <kevin@ctsim.org>
+.\"
+.\" $Id: ifinfo.1,v 1.4 2002/05/03 10:28:17 kevin Exp $
+.Dd April 19, 2000
+.Dt IFINFO 1
+.Os
+.Sh NAME
+.Nm ifinfo
+.Nd Print IF (Image File) Information
+.Sh SYNOPSIS
+.Nm ifinfo iffile [OPTIONS]
+.Sh DESCRIPTION 
+.Pp
+.Nm 
+prints information about an IF file
+.Pp
+The options are as follows:
+.Bl -tag -width Ds
+.It Fl Fl labels
+Print history labels (default)
+.It Fl Fl stats
+Print image statistics (default) 
+.It Fl Fl no-labels
+Do not print history labels
+.It Fl Fl no-stats
+Do not print image statistics
+.It Fl Fl debug
+Set debug mode
+.It Fl Fl verbose
+Set verbose mode
+.It Fl Fl version
+Print version
+.It Fl Fl help
+Print terse help summary
+.El
+.Sh AUTHORS
+Kevin Rosenberg, M.D. <kevin@ctsim.org>
+.Sh HISTORY
+CTSim was begun in 1983 using MS-DOS and an EGA display adapter. In
+1999 it was ported to GNU/Linux and later ported to Microsoft Windows.
+.Sh SEE ALSO
+ctsim (1), if1 (1), if2 (1), ifexport (1), phm2pj (1), phm2if (1), pj2if (1), pjinfo (1), pjrec (1)

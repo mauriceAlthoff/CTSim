@@ -1,0 +1,42 @@
+.\" -*- NROFF -*-
+.\" 
+.TH "PJ2IF" "1" "" "Kevin Rosenberg" "Engineering"
+.SH "NAME"
+pj2if \- convert a projecttion file into an image (IF) file
+.SH "SYNOPSIS"
+.B pj2if in\-proj\-file out\-if\-file [OPTIONS]
+.SH "DESCRIPTION "
+\fIpj2if\fP converts \fIin\-proj\-file\fP, a file of projection data, into 
+image (IF) file \fIout\-if\-file\fP, 
+which can be further processed for viewing with \fIif2img\fP.
+.SH "OPTIONS"
+.TP 
+.B \-\-verbose   
+Verbose mode
+.TP 
+.B \-\-dump      
+Dump all scan data
+.TP 
+.B \-\-version   
+Print version
+.TP 
+.B \-\-help      
+Print a terse help message
+.SH "AUTHORS"
+Kevin Rosenberg, M.D. <kevin@ctsim.org>
+.SH "HISTORY"
+CTSim was begun in 1983 using MS\-DOS and an EGA display adapter. In
+1999 it was ported to GNU/Linux and later ported to Microsoft Windows.
+.SH "SEE ALSO"
+.BR ctsim (1)
+.BR ctsimtext (1)
+.BR if1 (1)
+.BR if2 (1)
+.BR ifinfo (1)
+.BR linogram (1)
+.BR phm2helix (1)
+.BR phm2if (1)
+.BR phm2pj (1)
+.BR pjHinterp (1)
+.BR pjinfo (1)
+.BR pjrec (1)

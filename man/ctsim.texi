@@ -1,0 +1,74 @@
+input texinfo   @c -*-texinfo-*-
+@c %**start of header
+@setfilename ctsim.info
+@settitle CTSim Manual
+@c %**end of header
+
+@setchapternewpage odd
+
+@ifinfo
+Reference Manual for CTSim
+
+Copyright (c) 2000 Kevin Rosenberg
+@end ifinfo
+
+@titlepage
+@sp 10
+@comment The title is printed in a large font.
+@center @titlefont{CTSim Manual}
+
+@c The following two commands start the copyright page.
+@page
+@vskip 0pt plus 1filll
+Copyright @copyright{} 2000 Kevin Rosenberg
+@end titlepage
+
+@node    Top,       Computed Tomography Overview, (dir),    (dir)
+@comment node-name, next,          previous, up
+
+@menu
+* Computed Tomography Overview::    The first chapter 
+* Algorithms:: Algorithms used by this program
+* Concept Index::    This index has two entries.
+@end menu
+
+@node    Computed Tomography Overview, Algorithms, Top,      Top
+@comment node-name,     next,          previous, up
+@chapter Computed Tomography Overview
+@cindex Overview
+
+@section Overview
+Computed Tomography is a process to reconstruction internal images of
+an object by taking projection data through that object.
+
+@cindex Another sample index entry
+
+Here is a numbered list.
+
+@enumerate
+@item
+This is the first item.
+
+@item
+This is the second item.
+@end enumerate
+
+The @code{makeinfo} and @code{texinfo-format-buffer}
+commands transform a Texinfo file such as this into
+an Info file; and @TeX{} typesets it for a printed
+manual.
+
+@node  Algorithms , Concept Index , Computed Tomography Overview , Top
+
+@section Theory
+This is great.
+
+@node    Concept Index,    ,  Algorithms , Top
+@comment node-name,    next,  previous,      up
+@unnumbered Concept Index
+
+@printindex cp
+
+@contents
+@bye
+

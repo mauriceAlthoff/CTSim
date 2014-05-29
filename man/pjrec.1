@@ -1,0 +1,159 @@
+.\" -*- NROFF -*-
+.\" 
+.TH "pjrec" "1" "" "Kevin Rosenberg" "Engineering"
+.SH "NAME"
+pjrec \- reconstruction from projections
+.SH "SYNOPSIS"
+.B pjrec projection\-file image\-file nx\-image ny\-image [OPTIONS]
+.SH "DESCRIPTION"
+\fIpjrec\fP takes projection data from \fIraysum\-file\P and produces an
+(IF) image file \fIimage\-file\fP, of size \fInx\-image\fP by
+\fIny\-image\fP pixels, containing the reconstructed image.  
+.SH "OPTIONS"
+\fIpjrec\fP accepts the following options, which control the
+reconstruction algorithm:
+.TP 12
+.B \-\-interp        
+Interpolation method during backprojection
+.RS
+.TP 
+.B nearest     
+Nearest neighbor interpolation
+.TP 
+.B linear      
+Linear interpolation
+.RE
+.TP 12
+.B \-\-preinterpolate  
+Preinterpolation factor (default = 1).  Used only with frequency\-based 
+filtering
+.TP 12
+.B \-\-filter       
+Filter name
+.RS
+.TP 15
+.B abs_bandlimit 
+Abs * Bandlimiting (default)
+.TP 15
+.B abs_sinc      
+Abs * Sinc
+.TP 15
+.B abs_cosine    
+Abs * Cosine
+.TP 15
+.B abs_hamming   
+Abs * Hamming
+.TP 15
+.B shepp         
+Shepp\-Logan
+.TP 15
+.B bandlimit     
+Bandlimiting
+.TP 15
+.B sinc          
+Sinc
+.TP 15
+.B cosine        
+Cosine
+.TP 15
+.B triangle      
+Triangle
+.TP 15
+.B hamming       
+Hamming
+.RE
+.TP 12
+.B \-\-filter\-method  
+Filter method before backprojections
+.RS
+.TP 15
+.B convolution      
+Spatial filtering (default)
+.TP 15
+.B fourier          
+Frequency filtering with discete fourier
+.TP 15
+.B fourier_table    
+Frequency filtering with table lookup fourier
+.TP 15
+.B fft              
+Fast Fourier Transform
+.RE
+.TP 12
+.B \-\-zeropad n   
+Set zeropad level (default = 0).  set n to number of powers to two to pad
+.TP 12
+.B \-\-filter\-generation  
+Filter Generation mode
+.RS
+.TP 12
+.B direct       
+Use direct filter in spatial or frequency domain (default)
+.TP 12
+.B inverse_fourier  
+Use inverse fourier transform of inverse filter
+.RE
+.TP 12
+.B \-\-backproj    
+Backprojection Method
+.RS
+.TP 
+.B trig        
+Trigometric functions at every point
+.TP 
+.B table       
+Trigometric functions with precalculated table
+.TP 
+.B diff        
+Difference method
+.TP 
+.B diff2       
+Optimized difference method (default)
+.TP 
+.B idiff2      
+Optimized difference method with integer math
+.TP 
+.B idiff3      
+Highly\-optimized difference method with integer math
+.RE
+.TP 12
+.B \-\-filter\-param 
+Alpha level for Hamming filter
+.TP 12
+.B \-\-trace        
+Set tracing to level:
+.RS
+.TP 12
+.B none        
+No tracing (default)
+.TP 12
+.B console     
+Text level tracing
+.RE
+.TP 12
+.B \-\-verbose      Turn on verbose mode
+.TP 12
+.B \-\-debug        Turn on debug mode
+.TP 12
+.B \-\-version      Print version
+.TP 12
+.B \-\-help         Print a terse help message
+.SH "AUTHORS"
+Kevin Rosenberg, M.D. <kevin@ctsim.org>
+.SH "HISTORY"
+CTSim was begun in 1983 using MS\-DOS and an EGA display adapter. In
+1999 it was ported to GNU/Linux and later ported to Microsoft Windows.
+.SH "SEE ALSO"
+.BR ctsim (1)
+.BR ctsimtext (1)
+.BR if1 (1)
+.BR if2 (1)
+.BR ifinfo (1)
+.BR linogram (1)
+.BR phm2helix (1)
+.BR phm2if (1)
+.BR phm2pj (1)
+.BR pj2if (1)
+.BR pjHinterp (1)
+.BR pjinfo (1)
+

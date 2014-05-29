@@ -1,0 +1,19 @@
+noinst_HEADERS=ct.h ezplot.h pol.h sgp.h array2d.h imagefile.h backprojectors.h mpiworld.h fnetorderstream.h phantom.h timer.h sstream_subst scanner.h projections.h ctsupport.h filter.h array2dfile.h trace.h transformmatrix.h procsignal.h reconstruct.h plotfile.h hashtable.h fourier.h ctglobals.h interpolator.h ctndicom.h nographics.h
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

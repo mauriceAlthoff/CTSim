@@ -1,0 +1,141 @@
+\documentclass[letterpaper,11pt]{report}
+\usepackage{graphicx}
+\usepackage{texhelp}
+\usepackage{fancyhea}
+\usepackage{mysober}
+\usepackage{mytitle}
+\usepackage{verbatim}
+\usepackage{makeidx}
+%\usepackage{times}
+\usepackage{hyperref}
+\input{psbox.tex}
+
+\latexonly{\includeonly{ctsim-concepts,ctsim-install,ctsim-gui,ctsim-textui,ctsim-web,ctsim-algorithms,ctsim-sgp}}
+\hyphenation{poly-gon-al multi-thread-ing}
+
+\newcommand{\ctsim}{\texttt{CTSim}}
+\newcommand{\ctsimtext}{\texttt{CTSimText}}
+\newcommand{\usage}{\textbf{Usage}\par}
+
+\newcommand{\commandref}[2]{\helpref{{\tt $\backslash$#1}}{#2}}%
+\newcommand{\commandrefn}[2]{\helprefn{{\tt $\backslash$#1}}{#2}\index{#1}}%
+\newcommand{\commandpageref}[2]{\latexignore{\helprefn{{\tt $\backslash$#1}}{#2}}\latexonly{{\tt $\backslash$#1} {\it page \pageref{#2}}}\index{#1}}
+\newcommand{\indexit}[1]{#1\index{#1}}%
+\newcommand{\inioption}[1]{{\bf {\tt #1}}\index{#1}}%
+
+\newcommand{\manvernum}[0]{1.0}
+\newcommand{\manver}[0]{v\manvernum}
+\newcommand{\mandate}[0]{May 1, 2002}
+\newcommand{\ctsimfooter}{\setfooter{\thepage}{}{}{\small Manual \manver}{\small \mandate}{\thepage}}
+\newcommand{\doublehyphen}[1]{-\,-\texttt{#1}}
+\newcommand{\ctsimvernum}[0]{3.5.0}
+\newcommand{\ctsimver}[0]{CTSim \ctsimvernum}
+\newcommand{\ctsimheadtitle}{\ctsimver\ Manual}
+
+\latexignore{\newcommand{\sqrt}[2]{sqrt(#2)}}
+
+\parskip=10pt%
+\parindent=0pt%
+%\backgroundcolour{255;255;255}\textcolour{0;0;0}% Has an effect in HTML only
+\title{CTSim 3.5 User Manual}%
+\author{Kevin M. Rosenberg, M.D.}%
+\makeindex%
+
+\textheight=9in
+\textwidth=6.0in
+\evensidemargin=0in
+\oddsidemargin=0in
+
+\begin{document}
+\maketitle
+\pagestyle{fancyplain}
+\pagenumbering{roman}
+
+\chapter*{Copyright notice}%
+\setheader{{\it COPYRIGHT}}{}{}{\ctsimheadtitle}{}{{\it COPYRIGHT}}%
+\ctsimfooter
+
+Copyright (c) 1983-2002 Kevin M. Rosenberg, M.D.
+
+Permission to use, copy, modify, and distribute this software and its
+documentation for any purpose is hereby granted without fee, provided that the
+above copyright notice, author statement and this permission notice appear in
+all copies of this software and related documentation.
+
+THE SOFTWARE IS PROVIDED ``AS-IS'' AND WITHOUT WARRANTY OF ANY KIND, EXPRESS,
+IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF
+MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+
+IN NO EVENT SHALL KEVIN M. ROSENBERG BE LIABLE FOR ANY
+SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND, OR
+ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY
+OF LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+
+
+\chapter*{Acknowledgements}
+\setheader{{\it COPYRIGHT}}{}{}{\ctsimheadtitle}{}{{\it COPYRIGHT}}%
+\setfooter{\thepage}{}{}{}{\manver}{\thepage}%
+
+\textbf{Ian Kay, Ph.D.}\\ Special thanks to Dr. Kay for contributing
+portions to this manual. Dr. Kay has assisted the development of
+\ctsim\ with the addition of helical scanning, bug reports, and paches.
+
+\textbf{Gabor T. Herman, Ph.D.}\\ Dr. Herman's publications on
+computed tomography inspired the initial version \ctsim\ in
+1983. Dr. Herman has graciously permitted use of his copyrighted head
+phantom for use in \ctsim.
+
+
+\setheader{{\it CONTENTS}}{}{}{\ctsimheadtitle}{}{{\it CONTENTS}}%
+\ctsimfooter
+\parskip=2pt
+\tableofcontents%
+
+\parskip=10pt
+\chapter{Introduction}\label{IDH_INTRODUCTION}
+\pagenumbering{arabic}
+\setheader{{\it CHAPTER \thechapter}}{}{}{\ctsimheadtitle}{}{{\it CHAPTER \thechapter}}%
+\ctsimfooter
+
+
+\centerline{\image{3cm;3cm}{logo.eps}}
+Computed tomography is a technique for estimating the interior of an
+object from measurements of radiation collected around the object. This
+radiation can be either projected through or emitted from the
+object. \ctsim\ simulates the process of projecting X-rays
+through a phantom object. \ctsim\ can then reconstruct the
+interior of the object from those projections. \ctsim\ integrates
+numerous visualization and analytic tools.
+
+This manual begins with an introduction into the concepts of
+\ctsim. Next, the graphical, command-line, and web shells are
+presented. Finally, the installation of \ctsim\ is discussed.
+
+I hope that you enjoy \ctsim!
+
+\include{ctsim-concepts}
+\include{ctsim-gui}
+\include{ctsim-textui}
+\include{ctsim-web}
+\include{ctsim-install}
+\appendix
+\include{ctsim-algorithms}
+\include{ctsim-sgp}
+
+\newpage
+
+\bibliographystyle{plain}
+\bibliography{ctsim}
+\addcontentsline{toc}{chapter}{Bibliography}
+\setheader{{\it REFERENCES}}{}{}{\ctsimheadtitle}{}{{\it REFERENCES}}
+\ctsimfooter
+
+\newpage
+\addcontentsline{toc}{chapter}{Index}
+\setheader{{\it INDEX}}{}{}{\ctsimheadtitle}{}{{\it INDEX}} %
+\ctsimfooter
+\printindex
+
+\end{document}
